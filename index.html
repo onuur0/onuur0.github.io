@@ -16,6 +16,24 @@
         rel="stylesheet">
 
     <style>
+        /* Fix for App Icon Image */
+        .app-icon-wrapper {
+            width: 320px;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app-icon-img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 20px;
+            animation: float 6s ease-in-out infinite;
+            /* Keep the floating animation */
+        }
+
         :root {
             /* Premium Color Palette */
             --bg-dark: #0f172a;
@@ -81,6 +99,12 @@
             transition: var(--transition);
         }
 
+        /* Push logo to the left by expanding header container */
+        header .container {
+            max-width: 95%;
+            padding: 0 2rem;
+        }
+
         nav {
             display: flex;
             justify-content: space-between;
@@ -92,10 +116,18 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--text-main);
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: var(--primary-gold);
             text-decoration: none;
+            letter-spacing: -0.5px;
+            /* Gradient Text Effect */
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            /* Glow effect */
+            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.2));
         }
 
         .logo-icon {
@@ -358,15 +390,31 @@
         .feature-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-weight: 500;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 16px 20px;
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            background: rgba(251, 191, 36, 0.05);
+            border-color: rgba(251, 191, 36, 0.3);
+            transform: translateX(5px);
         }
 
         .check-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: var(--primary-gold);
             background: rgba(251, 191, 36, 0.1);
-            padding: 5px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
+            flex-shrink: 0;
         }
 
         .store-buttons {
@@ -512,7 +560,6 @@
         <div class="container">
             <nav>
                 <a href="#" class="logo">
-                    <div class="logo-icon">🦌</div>
                     <span>Karaca Studios</span>
                 </a>
 
@@ -584,10 +631,11 @@
 
             <div class="app-box">
                 <div class="app-visual">
-                    <!-- Updated: Official Giresun Altın App Icon -->
-                    <img src="https://play-lh.googleusercontent.com/6S3Z45t4X5627233261765451523414002753234505164472666175114421255535"
-                        alt="Giresun Altın Logo" class="app-icon-large"
-                        style="background: transparent; box-shadow: none; border-radius: 20px;">
+                    <!-- Updated: User's Official App Icon -->
+                    <div class="app-icon-wrapper">
+                        <img src="assets/giresun_altin_yeni_ikon.jpg" alt="Giresun Altın Mobil Uygulaması Logosu"
+                            class="app-icon-img">
+                    </div>
                 </div>
                 <div class="app-details">
                     <h2 class="text-gradient">Giresun Altın</h2>
@@ -595,17 +643,58 @@
                         finans uygulaması. Binlerce kullanıcının günlük ekonomi rehberi.</p>
 
                     <div class="feature-list">
-                        <div class="feature-item"><span class="check-icon">✓</span> Canlı Veri Akışı</div>
-                        <div class="feature-item"><span class="check-icon">✓</span> Anlık Bildirimler</div>
-                        <div class="feature-item"><span class="check-icon">✓</span> Güvenilir Kaynaklar</div>
-                        <div class="feature-item"><span class="check-icon">✓</span> Minimal Tasarım</div>
+                        <div class="feature-item">
+                            <span class="check-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    width="16" height="16">
+                                    <path fill-rule="evenodd"
+                                        d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                            Canlı Veri Akışı
+                        </div>
+                        <div class="feature-item">
+                            <span class="check-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    width="16" height="16">
+                                    <path fill-rule="evenodd"
+                                        d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                            Anlık Bildirimler
+                        </div>
+                        <div class="feature-item">
+                            <span class="check-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    width="16" height="16">
+                                    <path fill-rule="evenodd"
+                                        d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                            Güvenilir Kaynaklar
+                        </div>
+                        <div class="feature-item">
+                            <span class="check-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    width="16" height="16">
+                                    <path fill-rule="evenodd"
+                                        d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                            Minimal Tasarım
+                        </div>
                     </div>
 
                     <div class="store-buttons">
                         <!-- Updated: Only Google Play button -->
                         <a href="https://play.google.com/store/apps/details?id=com.karacastudios.giresunaltin"
                             class="store-btn">
-                            <span>🤖</span> Google Play'de İncele
+                            <img src="assets/Google_Play_2022_icon.svg.png" alt="Google Play" width="30" height="30">
+                            Google Play'de Görüntüle
                         </a>
                     </div>
                 </div>
@@ -619,7 +708,6 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <a href="#" class="logo" style="margin-bottom: 1rem; display: inline-flex;">
-                        <div class="logo-icon" style="width:30px; height:30px; font-size:1rem;">🦌</div>
                         <span>Karaca Studios</span>
                     </a>
                     <p class="text-muted">Profesyonel yazılım çözümleri ve dijital dönüşüm ajansı.</p>
@@ -653,132 +741,7 @@
         </div>
     </footer>
 
-    <!-- Running Deer Animation -->
-    <div class="deer-track">
-        <div class="deer" id="deer">🦌</div>
-        <div class="code-block" id="code-block">
-            <span>&lt;/&gt;</span>
-        </div>
-    </div>
-
-    <style>
-        .deer-track {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            pointer-events: none;
-            z-index: 9999;
-            /* Optional: visual track line */
-            /* border-top: 1px solid rgba(255,255,255,0.1); */
-        }
-
-        .deer {
-            position: absolute;
-            left: 0;
-            bottom: 5px;
-            /* Stay close to bottom */
-            font-size: 40px;
-            transition: left 0.1s linear;
-            transform-origin: bottom center;
-            will-change: transform, left;
-        }
-
-        /* Running Animation (Bobbing) */
-        @keyframes run-cycle {
-
-            0%,
-            100% {
-                transform: scaleX(-1) translateY(0);
-            }
-
-            50% {
-                transform: scaleX(-1) translateY(-10px);
-            }
-        }
-
-        .deer.running {
-            animation: run-cycle 0.4s infinite ease-in-out;
-        }
-
-        .code-block {
-            position: absolute;
-            right: 20px;
-            bottom: 15px;
-            font-family: monospace;
-            font-size: 24px;
-            color: var(--primary-gold);
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        /* Explosion Effect when broken */
-        .code-block.broken {
-            transform: rotate(25deg) scale(1.3) translateY(-15px);
-            color: #ef4444;
-            text-decoration: line-through;
-            opacity: 0.8;
-            text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-        }
-
-        .code-block.broken::after {
-            content: '💥';
-            position: absolute;
-            top: -25px;
-            right: -15px;
-            font-size: 28px;
-            animation: pop 0.3s ease-out;
-        }
-
-        @keyframes pop {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-    </style>
-
     <script>
-        // Scroll Animation Logic
-        window.addEventListener('scroll', () => {
-            const deer = document.getElementById('deer');
-            const codeBlock = document.getElementById('code-block');
-
-            // Add running class to make it bob
-            deer.classList.add('running');
-
-            // Calculate scroll percentage (0 to 1)
-            const scrollTop = window.scrollY;
-            const docHeight = document.body.scrollHeight - window.innerHeight;
-            let scrollPercent = scrollTop / docHeight;
-
-            // Clamp between 0 and 1
-            scrollPercent = Math.max(0, Math.min(1, scrollPercent));
-
-            // Move deer from 0% to ~92%
-            const maxLeft = window.innerWidth - 80;
-            deer.style.left = (scrollPercent * maxLeft) + 'px';
-
-            // "Hit" logic when near the end (e.g. > 98%)
-            if (scrollPercent > 0.98) {
-                codeBlock.classList.add('broken');
-                // Stop running animation on impact (optional choice)
-                deer.style.animationPlayState = 'paused';
-            } else {
-                codeBlock.classList.remove('broken');
-                deer.style.animationPlayState = 'running';
-            }
-        });
-
-        // Trigger once on load to set initial state
-        window.dispatchEvent(new Event('scroll'));
-
         // Mobile Menu Toggle
         function toggleMenu() {
             const nav = document.querySelector('.nav-links');
