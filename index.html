@@ -14,8 +14,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <!-- Final Selection: MedievalSharp for a TaleWorlds/Epic vibe -->
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
 
     <style>
         /* Fix for App Icon Image */
@@ -117,26 +115,31 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-family: 'MedievalSharp', cursive;
-            font-size: 1.7rem;
-            color: var(--primary-gold);
+            gap: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem;
             text-decoration: none;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            /* Gradient Text Effect */
+            transition: var(--transition);
+        }
+
+        .logo-bold {
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .logo-light {
+            font-weight: 300;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            /* Glow effect */
-            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.3));
-            transition: var(--transition);
         }
 
         .logo:hover {
-            filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.5));
             transform: scale(1.02);
+            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.3));
         }
 
         .logo-icon {
@@ -571,7 +574,8 @@
         <div class="container">
             <nav>
                 <a href="#" class="logo">
-                    <span>Karaca Studios</span>
+                    <span class="logo-bold">KARACA</span>
+                    <span class="logo-light">STUDIOS</span>
                 </a>
 
                 <ul class="nav-links">
