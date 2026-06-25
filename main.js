@@ -87,34 +87,73 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "none"
     }, 1.2);
 
-    // 3. Content Layer & Cards Entrance Animation
-    // Creates a single, unified timeline that animates the parent container and staggers the children
-    // to avoid multiple ScrollTrigger calculation conflicts on moving elements.
-    const contentTL = gsap.timeline({
+    // 3. Services Section Entrance Animation
+    const servicesTL = gsap.timeline({
         scrollTrigger: {
-            trigger: "#content-layer",
-            start: "top 92%", // Trigger when the top of the layer is near the bottom of the viewport
-            toggleActions: "play none none reverse" // Play on scroll down, reverse on scroll up
+            trigger: "#services",
+            start: "top 90%", // Trigger when the top of services is near the bottom of the viewport
+            toggleActions: "play none none reverse",
+            onLeaveBack: () => {
+                document.querySelectorAll(".service-card").forEach(card => card.classList.remove("animation-done"));
+            }
         }
     });
 
-    // Parent float-in & fade-in
-    contentTL.from("#content-layer", {
-        y: 80,
+    servicesTL.from("#services .section-meta, #services .section-title", {
+        y: 30,
         opacity: 0,
-        rotationX: 6,
-        transformPerspective: 1200,
-        transformOrigin: "top center",
-        duration: 1.0,
-        ease: "power3.out"
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power2.out"
     });
 
-    // Child cards stagger-in (offsetting to overlap with parent animation)
-    contentTL.from(".service-card, .app-box", {
+    servicesTL.from(".service-card", {
         y: 40,
         opacity: 0,
         duration: 0.8,
         stagger: 0.15,
+        ease: "power2.out",
+        onComplete: () => {
+            document.querySelectorAll(".service-card").forEach(card => card.classList.add("animation-done"));
+        }
+    }, "-=0.4");
+
+    // 4. Portfolio Section Entrance Animation
+    const portfolioTL = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#portfolio",
+            start: "top 90%", // Trigger when the top of portfolio is near the bottom of the viewport
+            toggleActions: "play none none reverse"
+        }
+    });
+
+    portfolioTL.from("#portfolio .section-meta, #portfolio .section-title", {
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
         ease: "power2.out"
-    }, "-=0.7");
+    });
+
+    // Animate each project box (app-box) individually as it enters the viewport
+    const appBoxes = gsap.utils.toArray(".app-box");
+    appBoxes.forEach((box) => {
+        gsap.from(box, {
+            scrollTrigger: {
+                trigger: box,
+                start: "top 92%", // Trigger when the top of the box enters the bottom of the viewport
+                toggleActions: "play none none reverse",
+                onLeaveBack: () => {
+                    box.classList.remove("animation-done");
+                }
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            onComplete: () => {
+                box.classList.add("animation-done");
+            }
+        });
+    });
 });
