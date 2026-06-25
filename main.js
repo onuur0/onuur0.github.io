@@ -87,35 +87,34 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "none"
     }, 1.2);
 
-    // 3. Content Layer Float-in ScrollTrigger
-    // Animates the opacity, slide, and 3D rotation of the content layer as it enters the viewport
-    gsap.from("#content-layer", {
+    // 3. Content Layer & Cards Entrance Animation
+    // Creates a single, unified timeline that animates the parent container and staggers the children
+    // to avoid multiple ScrollTrigger calculation conflicts on moving elements.
+    const contentTL = gsap.timeline({
         scrollTrigger: {
             trigger: "#content-layer",
-            start: "top 98%", // Start animation when the top of the layer enters the screen
-            end: "top 70%",   // Complete animation by the time the top is at 70% height
-            scrub: 1 // Link to scroll progress smoothly
-        },
-        y: 100, // Slide up
-        opacity: 0,
-        rotationX: 8,
-        transformPerspective: 1200,
-        transformOrigin: "top center"
+            start: "top 92%", // Trigger when the top of the layer is near the bottom of the viewport
+            toggleActions: "play none none reverse" // Play on scroll down, reverse on scroll up
+        }
     });
 
-    // Subtle fade in and float for individual cards as they scroll into view
-    const cards = gsap.utils.toArray(".service-card, .app-box");
-    cards.forEach((card) => {
-        gsap.from(card, {
-            scrollTrigger: {
-                trigger: card,
-                start: "top 85%", // Starts animation when card top reaches 85% of viewport height
-                toggleActions: "play none none reverse"
-            },
-            y: 50,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power2.out"
-        });
+    // Parent float-in & fade-in
+    contentTL.from("#content-layer", {
+        y: 80,
+        opacity: 0,
+        rotationX: 6,
+        transformPerspective: 1200,
+        transformOrigin: "top center",
+        duration: 1.0,
+        ease: "power3.out"
     });
+
+    // Child cards stagger-in (offsetting to overlap with parent animation)
+    contentTL.from(".service-card, .app-box", {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power2.out"
+    }, "-=0.7");
 });
