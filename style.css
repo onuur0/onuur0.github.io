@@ -131,6 +131,8 @@ body {
     letter-spacing: 0.1em;
     cursor: pointer;
     transition: var(--transition-micro);
+    display: inline-block;
+    text-decoration: none;
 }
 
 .btn-minimal:hover {
