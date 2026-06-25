@@ -90,8 +90,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. Services Section Entrance Animation
     const servicesTL = gsap.timeline({
         scrollTrigger: {
-            trigger: "#services",
-            start: "top 90%", // Trigger when the top of services is near the bottom of the viewport
+            trigger: "#content-layer",
+            start: "top 92%", // Trigger when the top of the content layer enters the viewport
             toggleActions: "play none none reverse",
             onLeaveBack: () => {
                 document.querySelectorAll(".service-card").forEach(card => card.classList.remove("animation-done"));
