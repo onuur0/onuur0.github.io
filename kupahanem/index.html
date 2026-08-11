@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KupaHanem | Sanatsal ve Minimalist Kupa Butiği</title>
+    <meta name="description" content="KupaHanem - Kendi kupasıyla hikayesini yazanlar için minimalist, porselen ve toprak tonlarında premium kupa deneyimi. Atölyemizde kendi kupanızı tasarlayın.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&family=Cinzel:wght@600;800&family=Dancing+Script:wght@700&family=Montserrat:wght@700&family=Sacramento&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="index.css">
+</head>
+<body class="loading-state">
+
+    <!-- Ambient Audio Element -->
+    <audio id="ambient-sound" loop src="https://assets.mixkit.co/active_storage/sfx/2433/2433-84.wav" style="display:none;"></audio>
+
+    <!-- Welcome Entry Portal (Bright, Premium Invite) -->
+    <div id="entry-portal" class="entry-portal">
+        <div class="portal-overlay-decor"></div>
+        <div class="portal-content">
+            <div class="logo-wrapper">
+                <img src="assets/logo.jpg" alt="KupaHanem Logo" class="portal-logo">
+            </div>
+            <h1 class="portal-title">KupaHanem</h1>
+            <p class="portal-subtitle">Toprağın Ateşle, Çayın Hikayeyle Buluştuğu Butik</p>
+            <button id="enter-btn" class="enter-btn">
+                <span>Atölyeyi Keşfet</span>
+                <div class="btn-glow"></div>
+            </button>
+            <p class="portal-note"><i class="fa-solid fa-mug-hot"></i> Arkada çalan sakin atölye melodisiyle deneyimleyin</p>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="main-header hidden-element">
+        <div class="nav-container">
+            <div class="logo-area" id="brand-logo-trigger">
+                <img src="assets/logo.jpg" alt="KupaHanem Logo" class="nav-logo">
+                <span class="brand-text">KupaHanem</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#hero" class="nav-link active">Atölye</a>
+                <a href="#galeri" class="nav-link">Koleksiyon</a>
+                <a href="#atolye" class="nav-link">Tasarım Masası</a>
+                <a href="#rituel" class="nav-link">Keşif Ritüeli</a>
+            </nav>
+            <div class="nav-actions">
+                <button id="sound-toggle-btn" class="icon-btn sound-btn" title="Ambiansı Değiştir">
+                    <i class="fa-solid fa-volume-xmark"></i>
+                    <span class="sound-wave">
+                        <span></span><span></span><span></span><span></span>
+                    </span>
+                </button>
+                <button id="cart-toggle-btn" class="icon-btn cart-btn" title="Sepetim">
+                    <i class="fa-solid fa-mug-hot"></i>
+                    <span id="cart-badge" class="badge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="main-content hidden-element">
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-bg-overlay"></div>
+            <div class="hero-container">
+                <div class="hero-text-content">
+                    <span class="hero-tag">Zanaat & Minimalizm</span>
+                    <h2 class="hero-title">Çamurdan Süzülen <br><span class="gradient-text">Zarif</span> Dokunuşlar.</h2>
+                    <p class="hero-desc">KupaHanem, toprağın ham doğallığını pürüzsüz porselen işçiliğiyle harmanlıyor. Masanızda sadece bir kupa değil, zanaat kokan bir sanat eseri taşıyın.</p>
+                    <div class="hero-buttons">
+                        <a href="#atolye" class="action-btn primary-btn scroll-to">
+                            <span>Tasarım Masası</span>
+                            <i class="fa-solid fa-compass-drafting"></i>
+                        </a>
+                        <a href="#galeri" class="action-btn secondary-btn scroll-to">
+                            <span>Koleksiyonu İncele</span>
+                            <i class="fa-solid fa-store"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-mug-display">
+                        <div class="glowing-orb"></div>
+                        <img src="assets/nordic_forest.jpg" alt="KupaHanem Artisan Mug" class="hero-img floating-mug">
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Aşağı Kaydır</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Product Gallery Section (Now populated dynamically via JS) -->
+        <section id="galeri" class="section galeri-section">
+            <div class="section-header">
+                <span class="section-tag">Zanaatkar Serisi</span>
+                <h2 class="section-title">İmza Koleksiyonumuz</h2>
+                <p class="section-subtitle">Her biri seramik fırınlarımızda tek tek sırlanmış, minimalist estetiğin zirvesindeki modeller.</p>
+            </div>
+            
+            <div class="gallery-grid" id="shop-gallery-grid">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </section>
+
+        <!-- Customizer Studio Section (Tasarım Masası) -->
+        <section id="atolye" class="section atolye-section">
+            <div class="section-header">
+                <span class="section-tag">Sanat Atölyesi</span>
+                <h2 class="section-title">Kendi Kupasını Yapanlara</h2>
+                <p class="section-subtitle">Porselen beyazı veya renkli killi gövdelerimizi seçin, üzerine el işi desenler ekleyin ve adınıza özel kazıtın.</p>
+            </div>
+
+            <div class="customizer-container">
+                <!-- Preview Side -->
+                <div class="customizer-preview-box" style="display: flex; flex-direction: column; gap: 15px;">
+                    <!-- Presets bar -->
+                    <div class="customizer-presets-row" style="width: 100%;">
+                        <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Zanaat Reçeteleri:</span>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 5px;">
+                            <button class="preset-badge-btn" data-preset="nordic">
+                                <i class="fa-solid fa-tree"></i> Nordik Orman
+                            </button>
+                            <button class="preset-badge-btn" data-preset="gold">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Altın Işıltı
+                            </button>
+                            <button class="preset-badge-btn" data-preset="terracotta">
+                                <i class="fa-solid fa-fire"></i> Bohem Toprak
+                            </button>
+                            <button class="preset-badge-btn" data-preset="minimal">
+                                <i class="fa-solid fa-circle"></i> Kömür Minimal
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="canvas-3d-wrapper" style="width: 100%; height: 380px;">
+                        <div id="threejs-container" style="width: 100%; height: 100%;"></div>
+                    </div>
+                    <div class="preview-badge"><i class="fa-solid fa-circle-notch"></i> 3D Çömlek Tezgahı (360° Döndürebilirsiniz)</div>
+                </div>
+
+                <!-- Customizer Panel -->
+                <div class="customizer-options-panel">
+                    <!-- Customizer Tabs Nav -->
+                    <div class="customizer-tabs-nav" style="display: flex; gap: 8px; border-bottom: 2px solid var(--border-color); margin-bottom: 1.5rem; padding-bottom: 0.5rem;">
+                        <button class="customizer-tab-btn active" data-tab="tab-clay-body">
+                            <i class="fa-solid fa-cubes"></i> Gövde & Kil
+                        </button>
+                        <button class="customizer-tab-btn" data-tab="tab-handle-pattern">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Kulp & Desen
+                        </button>
+                        <button class="customizer-tab-btn" data-tab="tab-personalization">
+                            <i class="fa-solid fa-feather-pointed"></i> Kişiselleştirme
+                        </button>
+                    </div>
+
+                    <!-- TAB 1: Gövde & Kil -->
+                    <div id="tab-clay-body" class="customizer-tab-content">
+                        <div class="panel-section">
+                            <h4 class="section-sub-title">1. Çömlek Gövde Sırı (Renk)</h4>
+                            <div class="option-row" id="color-selectors">
+                                <button class="color-dot active" data-color="#F4F1DE" data-color-name="Porselen Krem" style="background-color: #F4F1DE;" title="Porselen Krem"></button>
+                                <button class="color-dot" data-color="#E07A5F" data-color-name="Toprak Terracotta" style="background-color: #E07A5F;" title="Toprak Terracotta"></button>
+                                <button class="color-dot" data-color="#81B29A" data-color-name="Adaçayı Yeşili" style="background-color: #81B29A;" title="Adaçayı Yeşili"></button>
+                                <button class="color-dot" data-color="#F2CC8F" data-color-name="Bal Sarısı" style="background-color: #F2CC8F;" title="Bal Sarısı"></button>
+                                <button class="color-dot" data-color="#3D405B" data-color-name="Mat Kömür Siyahı" style="background-color: #3D405B;" title="Mat Kömür Siyahı"></button>
+                                <button class="color-dot" data-color="#4F5D75" data-color-name="İndigo Mavi" style="background-color: #4F5D75;" title="İndigo Mavi"></button>
+                            </div>
+                            <span class="selected-value-label">Masa Sırı: <strong id="selected-color-name">Porselen Krem</strong></span>
+                        </div>
+
+                        <div class="panel-section">
+                            <h4 class="section-sub-title">2. Çömlek Kil Dokusu</h4>
+                            <div class="handle-selector-grid" id="clay-texture-selectors" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                                <button class="handle-btn active" data-clay-texture="glazed" data-clay-texture-name="Cilalı Parlak Sır">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                    <span>Cilalı Parlak</span>
+                                </button>
+                                <button class="handle-btn" data-clay-texture="matte" data-clay-texture-name="Mat Saten">
+                                    <i class="fa-solid fa-brush"></i>
+                                    <span>Mat Saten</span>
+                                </button>
+                                <button class="handle-btn" data-clay-texture="rough" data-clay-texture-name="Şamot / Pürüzlü Toprak">
+                                    <i class="fa-solid fa-gem"></i>
+                                    <span>Pürüzlü Şamot</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="panel-section">
+                            <h4 class="section-sub-title">3. Atölye Görünüm Modu</h4>
+                            <div class="handle-selector-grid" id="studio-lighting-selectors" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                                <button class="handle-btn active" data-lighting="daylight" data-lighting-name="Gün Işığı Atölyesi">
+                                    <i class="fa-solid fa-sun"></i>
+                                    <span>Gün Işığı</span>
+                                </button>
+                                <button class="handle-btn" data-lighting="candlelight" data-lighting-name="Sıcak Mum Işığı">
+                                    <i class="fa-solid fa-fire-flame-curved"></i>
+                                    <span>Mum Işığı</span>
+                                </button>
+                                <button class="handle-btn" data-lighting="blueprint" data-lighting-name="CAD Tel Çerçeve Blueprint">
+                                    <i class="fa-solid fa-circle-nodes"></i>
+                                    <span>CAD Çizim</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: Kulp & Desen -->
+                    <div id="tab-handle-pattern" class="customizer-tab-content" style="display: none;">
+                        <div class="panel-section">
+                            <h4 class="section-sub-title">4. Sanatsal Yüzey Deseni</h4>
+                            <div class="pattern-grid" id="pattern-selectors">
+                                <button class="pattern-btn active" data-pattern="none">
+                                    <span class="pattern-preview pat-preview-none"></span>
+                                    <span>Sade Mat</span>
+                                </button>
+                                <button class="pattern-btn" data-pattern="speckles">
+                                    <span class="pattern-preview pat-preview-speckles"></span>
+                                    <span>Benekli Toprak</span>
+                                </button>
+                                <button class="pattern-btn" data-pattern="waves">
+                                    <span class="pattern-preview pat-preview-waves"></span>
+                                    <span>Killi Dalgalar</span>
+                                </button>
+                                <button class="pattern-btn" data-pattern="gold-glint">
+                                    <span class="pattern-preview pat-preview-gold"></span>
+                                    <span>Altın Yaldız</span>
+                                </button>
+                                <button class="pattern-btn" data-pattern="stripes">
+                                    <span class="pattern-preview pat-preview-stripes"></span>
+                                    <span>Sade Çizgiler</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="panel-section">
+                            <h4 class="section-sub-title">5. Kulp Malzemesi</h4>
+                            <div class="handle-selector-grid" id="handle-selectors">
+                                <button class="handle-btn active" data-handle="ceramic">
+                                    <i class="fa-solid fa-certificate"></i>
+                                    <span>Bütünsel Kil</span>
+                                </button>
+                                <button class="handle-btn" data-handle="wood">
+                                    <i class="fa-solid fa-tree"></i>
+                                    <span>Organik Meşe</span>
+                                </button>
+                                <button class="handle-btn" data-handle="gold">
+                                    <i class="fa-solid fa-coins"></i>
+                                    <span>Parlak Altın</span>
+                                </button>
+                                <button class="handle-btn" data-handle="brass">
+                                    <i class="fa-solid fa-hammer"></i>
+                                    <span>Antik Pirinç</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="panel-section">
+                            <h4 class="section-sub-title">6. Kulp Tasarım Şekli</h4>
+                            <div class="handle-selector-grid" id="handle-shape-selectors">
+                                <button class="handle-shape-btn active" data-shape="classic">
+                                    <i class="fa-solid fa-circle-half-stroke"></i>
+                                    <span>Klasik C</span>
+                                </button>
+                                <button class="handle-shape-btn" data-shape="angular-d">
+                                    <i class="fa-solid fa-square"></i>
+                                    <span>Köşeli D</span>
+                                </button>
+                                <button class="handle-shape-btn" data-shape="ring-o">
+                                    <i class="fa-solid fa-circle"></i>
+                                    <span>Modern O</span>
+                                </button>
+                                <button class="handle-shape-btn" data-shape="none">
+                                    <i class="fa-solid fa-ban"></i>
+                                    <span>Kulpsuz</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: Kişiselleştirme -->
+                    <div id="tab-personalization" class="customizer-tab-content" style="display: none;">
+                        <div class="panel-section">
+                            <h4 class="section-sub-title">7. Kişiselleştirme Ögeleri</h4>
+                            <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 10px;">Kupanızın önüne veya arkasına birden fazla metin kazıma veya fotoğraf baskısı ekleyebilirsiniz.</p>
+                            
+                            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                                <button type="button" id="add-text-layer-btn" class="action-btn text-btn" style="flex-grow: 1; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 6px; font-weight: 600; cursor: pointer; border: 1px solid var(--border-color); border-radius: 10px; background: #FFFFFF;">
+                                    <i class="fa-solid fa-font" style="color: var(--color-primary);"></i> Metin Ekle
+                                </button>
+                                <button type="button" id="add-photo-layer-btn" class="action-btn text-btn" style="flex-grow: 1; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 6px; font-weight: 600; cursor: pointer; border: 1px solid var(--border-color); border-radius: 10px; background: #FFFFFF;">
+                                    <i class="fa-solid fa-image" style="color: var(--color-primary);"></i> Fotoğraf Ekle
+                                </button>
+                            </div>
+
+                            <label style="font-size: 0.8rem; font-weight: 700; color: var(--color-heading); display: block; margin-bottom: 8px;">Tasarım Ögeleri Listesi</label>
+                            <div id="custom-layers-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; max-height: 150px; overflow-y: auto; background: var(--bg-darker); padding: 10px; border-radius: 12px; border: 1px solid var(--border-color);">
+                                <!-- Layers render dynamically here -->
+                            </div>
+                        </div>
+
+                        <!-- Öge Düzenleme Paneli -->
+                        <div id="layer-edit-panel" class="panel-section" style="display: none; background: rgba(45,31,26,0.02); padding: 15px; border-radius: 16px; border: 1px dashed var(--border-color);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                <h5 id="edit-layer-title" style="margin: 0; font-family: var(--font-header); color: var(--color-heading); font-size: 0.95rem;">Ögeyi Düzenle</h5>
+                                <button type="button" id="delete-layer-btn" style="background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                                    <i class="fa-solid fa-trash-can"></i> Kaldır
+                                </button>
+                            </div>
+
+                            <!-- Side selector (Ön / Arka Yüz) -->
+                            <div class="slider-control" style="margin-bottom: 12px;">
+                                <label style="font-size: 0.8rem; color: var(--color-text-muted); display: block; margin-bottom: 5px;">Yerleştirileceği Yüz</label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                    <button type="button" class="handle-btn" id="layer-side-front-btn">Ön Yüz (Logo/Yazı)</button>
+                                    <button type="button" class="handle-btn" id="layer-side-back-btn">Arka Yüz</button>
+                                </div>
+                            </div>
+
+                            <!-- Position Sliders -->
+                            <div class="slider-control" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                                <div>
+                                    <label style="font-size: 0.8rem; color: var(--color-text-muted); display: block; margin-bottom: 3px;">Düşey Yükseklik</label>
+                                    <input type="range" id="layer-pos-y" min="540" max="820" value="690" style="width: 100%; accent-color: var(--color-primary); cursor: pointer;">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.8rem; color: var(--color-text-muted); display: block; margin-bottom: 3px;">Yatay Kaydırma</label>
+                                    <input type="range" id="layer-pos-x" min="-250" max="250" value="0" style="width: 100%; accent-color: var(--color-primary); cursor: pointer;">
+                                </div>
+                            </div>
+
+                            <!-- Text Specific Settings -->
+                            <div id="layer-text-settings" style="display: none; flex-direction: column; gap: 12px;">
+                                <div class="engraving-input-wrapper">
+                                    <input type="text" id="layer-text-input" placeholder="Kazıma metnini girin" maxlength="15" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border-color); outline:none;">
+                                </div>
+                                
+                                <div>
+                                    <label style="font-size: 0.8rem; color: var(--color-text-muted); display: block; margin-bottom: 4px;">Yazı Tipi (Font)</label>
+                                    <select id="layer-text-font-select" style="width: 100%; padding: 8px 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #FFFFFF; font-size: 0.85rem; outline: none; cursor: pointer;">
+                                        <option value="Outfit">Outfit (Modern Geometrik)</option>
+                                        <option value="Playfair Display" style="font-family: 'Playfair Display';">Playfair Display (Zarif Klasik)</option>
+                                        <option value="Cinzel" style="font-family: 'Cinzel';">Cinzel (Roman Taş Baskı)</option>
+                                        <option value="Dancing Script" style="font-family: 'Dancing Script';">Dancing Script (Samimi El Yazısı)</option>
+                                        <option value="Montserrat" style="font-family: 'Montserrat';">Montserrat (Kalın Minimal)</option>
+                                        <option value="Sacramento" style="font-family: 'Sacramento';">Sacramento (Narin Cursive)</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label style="font-size: 0.8rem; color: var(--color-text-muted); display: block; margin-bottom: 3px;">Yazı Boyutu</label>
+                                    <input type="range" id="layer-text-size" min="16" max="75" value="45" style="width: 100%; accent-color: var(--color-primary); cursor: pointer;">
+                                </div>
+
+                                <div>
+                                    <label style="font-size: 0.8rem; color: var(--color-text-muted); display: block; margin-bottom: 5px;">Yazı Kazıma Rengi</label>
+                                    <div class="option-row" id="layer-text-color-selectors">
+                                        <button type="button" class="color-dot" data-color="auto" style="background: linear-gradient(135deg, #2D1F1A 50%, #FFFFFF 50%); border: 1px solid var(--border-color);" title="Otomatik"></button>
+                                        <button type="button" class="color-dot" data-color="#FFFFFF" style="background-color: #FFFFFF; border: 1px solid var(--border-color);" title="Beyaz"></button>
+                                        <button type="button" class="color-dot" data-color="#2D1F1A" style="background-color: #2D1F1A;" title="Espresso"></button>
+                                        <button type="button" class="color-dot" data-color="#D4AF37" style="background-color: #D4AF37;" title="Altın"></button>
+                                        <button type="button" class="color-dot" data-color="#E07A5F" style="background-color: #E07A5F;" title="Terracotta"></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Photo Specific Settings -->
+                            <div id="layer-photo-settings" style="display: none; flex-direction: column; gap: 12px;">
+                                <div style="display: flex; gap: 10px; align-items: center; background: #FFFFFF; padding: 8px; border-radius: 10px; border: 1px solid var(--border-color);">
+                                    <img id="layer-photo-preview" src="" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px;">
+                                    <span style="font-size: 0.75rem; color: var(--color-text-muted); text-overflow: ellipsis; overflow: hidden; white-space: nowrap; flex-grow: 1;">Fotoğraf Yüklendi</span>
+                                    <button type="button" id="layer-change-photo-btn" style="padding: 6px 12px; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.75rem; cursor: pointer; font-weight: 600;">Değiştir</button>
+                                </div>
+                                <input type="file" id="layer-photo-file-input" accept="image/*" style="display: none;">
+
+                                <div>
+                                    <label style="font-size: 0.8rem; color: var(--color-text-muted); display: block; margin-bottom: 3px;">Baskı Boyutu (Genişlik)</label>
+                                    <input type="range" id="layer-photo-scale" min="30" max="300" value="120" style="width: 100%; accent-color: var(--color-primary); cursor: pointer;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price & Add Card -->
+                    <div class="customizer-price-row">
+                        <div class="price-display-wrapper">
+                            <span class="price-label">Özel Zanaat Fiyatı</span>
+                            <span class="custom-price" id="custom-total-price">290 TL</span>
+                        </div>
+                        <button id="add-custom-cart-btn" class="add-custom-btn">
+                            <span>Sipariş Atölyesine Ekle</span>
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mug Discovery Quiz Section -->
+        <section id="rituel" class="section rituel-section">
+            <div class="section-header">
+                <span class="section-tag">Kupa Keşif Ritüeli</span>
+                <h2 class="section-title">Auranızı Çömlekle Buluşturun</h2>
+                <p class="section-subtitle">Size en uygun porselen tonunu ve kupa hikayesini belirleyelim.</p>
+            </div>
+
+            <div class="quiz-container" id="quiz-box">
+                <!-- Progress bar -->
+                <div class="quiz-progress-bar">
+                    <div class="progress-fill" id="quiz-progress" style="width: 25%;"></div>
+                </div>
+
+                <!-- Quiz Slides -->
+                <div class="quiz-slides-container">
+                    <!-- Step 1 -->
+                    <div class="quiz-slide active" data-step="1">
+                        <h3 class="quiz-question">Bir bardağa sıcak içecek koyarken hissetmek istediğiniz ilk duygu nedir?</h3>
+                        <div class="quiz-options-grid">
+                            <button class="quiz-option-btn" data-weight="toprak-hissiyati">
+                                <div class="option-icon"><i class="fa-solid fa-leaf"></i></div>
+                                <h4>Doğal Dinginlik</h4>
+                                <p>Bitki çayları, adaçayı kokusu ve huzurlu anlar.</p>
+                            </button>
+                            <button class="quiz-option-btn" data-weight="siber-hanem">
+                                <div class="option-icon"><i class="fa-solid fa-terminal"></i></div>
+                                <h4>Yoğun Odak</h4>
+                                <p>Sert bir filtre kahve eşliğinde derin düşünce seansları.</p>
+                            </button>
+                            <button class="quiz-option-btn" data-weight="kozmik-gezgin">
+                                <div class="option-icon"><i class="fa-solid fa-cloud-sun"></i></div>
+                                <h4>Sanatsal Yaratıcılık</h4>
+                                <p>Boho kupa tasarımları, gökyüzü ilhamları.</p>
+                            </button>
+                            <button class="quiz-option-btn" data-weight="karanlik-gunes">
+                                <div class="option-icon"><i class="fa-solid fa-chess-queen"></i></div>
+                                <h4>Lüks ve Karizma</h4>
+                                <p>Özel altın yaldızlı detaylar, şık espresso yudumları.</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="quiz-slide" data-step="2">
+                        <h3 class="quiz-question">Hayalinizdeki huzurlu sabah odasında hangi köşe sizi çeker?</h3>
+                        <div class="quiz-options-grid">
+                            <button class="quiz-option-btn" data-weight="toprak-hissiyati">
+                                <div class="option-icon"><i class="fa-solid fa-fire"></i></div>
+                                <h4>Şömine Karşıtı Kitaplık Köşesi</h4>
+                                <p>Ahşap kokuları ve toprak tonları barındıran zengin alan.</p>
+                            </button>
+                            <button class="quiz-option-btn" data-weight="karanlik-gunes">
+                                <div class="option-icon"><i class="fa-solid fa-palette"></i></div>
+                                <h4>Minimalist Sanat Atölyesi</h4>
+                                <p>Yüksek tavanlı, heykellerle süslü monokrom tasarım stüdyosu.</p>
+                            </button>
+                            <button class="quiz-option-btn" data-weight="toprak-hissiyati">
+                                <div class="option-icon"><i class="fa-solid fa-compass"></i></div>
+                                <h4>Bol Güneş Alan İskandinav Salonu</h4>
+                                <p>Sade porselenler ve keten dokularla bezeli sakin oda.</p>
+                            </button>
+                            <button class="quiz-option-btn" data-weight="kozmik-gezgin">
+                                <div class="option-icon"><i class="fa-solid fa-cloud-moon"></i></div>
+                                <h4>Cam Tavanlı Gece Gözlemevi</h4>
+                                <p>Mistik loş aydınlatmalar ve yıldız haritaları altında dinlenmek.</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="quiz-slide" data-step="3">
+                        <h3 class="quiz-question">Ev dekorasyonunda en çok değer verdiğiniz tasarım felsefesi hangisidir?</h3>
+                        <div class="quiz-options-grid">
+                            <button class="quiz-option-btn" data-weight="toprak-hissiyati">
+                                <div class="option-icon"><i class="fa-solid fa-seedling"></i></div>
+                                <h4>Wabi-Sabi (Doğal Kusur)</h4>
+                                <p>İşlenmemiş ahşaplar, el yapımı seramikler, bitkiler.</p>
+                            </button>
+                            <button class="quiz-option-btn" data-weight="karanlik-gunes">
+                                <div class="option-icon"><i class="fa-solid fa-cubes"></i></div>
+                                <h4>Bauhaus (Keskin Uyum)</h4>
+                                <p>Sadece siyah-beyaz zıtlıklar, heykelsi köşeli hatlar.</p>
+                            </button>
+                            <button class="quiz-option-btn" data-weight="toprak-hissiyati">
+                                <div class="option-icon"><i class="fa-solid fa-yin-yang"></i></div>
+                                <h4>Japandi (Sakin Huzur)</h4>
+                                <p>Pastel bejler, sade beyazlar ve aşırı dingin mekanlar.</p>
+                            </button>
+                            <button class="quiz-option-btn" data-weight="kozmik-gezgin">
+                                <div class="option-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                <h4>Bohem & Sanatsal Eklektik</h4>
+                                <p>Yıldız desenli minderler, el işi mumlar ve koyu tonlar.</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Result Step -->
+                    <div class="quiz-slide" data-step="result" id="quiz-result-slide">
+                        <div class="result-card">
+                            <div class="result-glow"></div>
+                            <span class="result-badge">Toprak Auranız Okundu!</span>
+                            <h3 class="result-title">Sizin Ruh Eşiniz: <span id="recommended-mug-title" class="gradient-text">Toprak Hissiyatı</span></h3>
+                            
+                            <div class="result-product-showcase">
+                                <img src="assets/nordic_forest.jpg" alt="Tavsiye Edilen Kupa" id="recommended-mug-img">
+                                <div class="result-product-details">
+                                    <p id="recommended-mug-desc">Mat adaçayı yeşili sırlı porselen gövde ile el işçiliği ham ahşap kulp uyumu.</p>
+                                    <div class="result-coupon">
+                                        <span>Zanaat İndirim Kodunuz: <strong>ZANAAT10</strong></span>
+                                    </div>
+                                    <div class="result-actions">
+                                        <button id="add-recommended-to-cart" class="action-btn primary-btn">
+                                            <span>Önerilen Kupayı Ekle (-10% İndirimle)</span>
+                                        </button>
+                                        <button id="restart-quiz-btn" class="action-btn text-btn">Ritüeli Yenile</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Slide-out Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-drawer-overlay"></div>
+        <div class="cart-drawer-content">
+            <div class="cart-header">
+                <h3><i class="fa-solid fa-mug-hot"></i> Sipariş Sepeti</h3>
+                <button id="cart-close-btn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="cart-items-container" id="cart-items">
+                <div class="empty-cart-message">
+                    <i class="fa-solid fa-hourglass-empty"></i>
+                    <p>Sepetiniz şu an boş. Atölyeden birkaç kupa ekleyin!</p>
+                </div>
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-totals">
+                    <span>Toplam Tutar</span>
+                    <span id="cart-total-price">0 TL</span>
+                </div>
+                <button id="checkout-btn" class="checkout-btn" disabled>
+                    <span>Siparişi Tamamla</span>
+                    <i class="fa-solid fa-circle-check"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal / Kupa Bilet -->
+    <div id="checkout-modal" class="checkout-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button id="modal-close-btn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="ticket-container" id="printable-ticket">
+                <div class="ticket-header">
+                    <div class="ticket-logo-wrapper">
+                        <img src="assets/logo.jpg" alt="Logo" class="ticket-logo">
+                    </div>
+                    <div class="ticket-header-text">
+                        <h4>KUPAHANEM SİPARİŞ FİŞİ</h4>
+                        <span class="ticket-serial" id="ticket-id">KH-92837492-X</span>
+                    </div>
+                </div>
+
+                <div class="ticket-body">
+                    <div class="ticket-info-row">
+                        <div>
+                            <span class="ticket-label">Tarih</span>
+                            <span class="ticket-value" id="ticket-date">06.08.2026</span>
+                        </div>
+                        <div>
+                            <span class="ticket-label">Fırın Durumu</span>
+                            <span class="ticket-value badge-glow">FIRINLANIYOR</span>
+                        </div>
+                    </div>
+
+                    <div class="ticket-divider"></div>
+
+                    <div class="ticket-items-list" id="ticket-items"></div>
+
+                    <div class="ticket-divider"></div>
+
+                    <div class="ticket-footer-row">
+                        <div>
+                            <span class="ticket-label">Zanaat Ödemesi</span>
+                            <span class="ticket-value">NFC Kredi Kartı (Simüle)</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="ticket-label">Toplam Tutar</span>
+                            <span class="ticket-value total-highlight" id="ticket-total">0 TL</span>
+                        </div>
+                    </div>
+
+                    <div class="ticket-barcode-section">
+                        <div class="barcode-graphic">
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <p class="barcode-text">KUPAHANEM*ARTISAN*EXPERIENCE</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button id="print-ticket-btn" class="action-btn primary-btn">
+                    <i class="fa-solid fa-print"></i>
+                    <span>Fişi Yazdır / PDF Kaydet</span>
+                </button>
+                <button id="complete-order-btn" class="action-btn secondary-btn">
+                    <span>Siparişi Kapat</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zanaat & Özgünlük Sertifikası Modal -->
+    <div id="certificate-modal" class="checkout-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content" style="max-width: 650px; max-height: 90vh; overflow-y: auto;">
+            <button id="cert-modal-close-btn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: #e07a5f1a; color: var(--color-primary); border-radius: 50%; font-size: 1.8rem; margin-bottom: 12px;">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 style="font-family: var(--font-header); margin: 0; font-size: 1.5rem; color: var(--color-heading);">Siparişiniz Atölyeye İletildi!</h3>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 4px 0 0 0;">Kupanız için hazırlanan benzersiz özgünlük sertifikası aşağıdadır.</p>
+            </div>
+
+            <!-- Printable Certificate Container -->
+            <div class="certificate-container" id="printable-certificate">
+                <div class="certificate-inner">
+                    <div class="certificate-header">
+                        <img src="assets/logo.jpg" alt="Logo" class="certificate-logo">
+                        <span class="cert-title">KupaHanem</span>
+                        <span class="cert-subtitle">ZANAAT VE ÖZGÜNLÜK SERTİFİKASI</span>
+                        <div class="cert-serial-box">
+                            <span>SERİ NO:</span>
+                            <span id="cert-serial-number">KH-2947293-A</span>
+                        </div>
+                    </div>
+
+                    <p class="cert-statement">
+                        Bu sertifika, yukarıda seri numarası belirtilen çömlek kupanın KupaHanem Butik Atölyesinde tamamen el işçiliğiyle biçimlendirilip sırlanarak yüksek sıcaklıkta fırınlandığını tescil eder. Sınırlı üretim olan bu sanat eseri, zanaatkar koordinatörlüğünde tamamen kişiye özel detaylarla tasarlanmıştır.
+                    </p>
+
+                    <div class="cert-specs-table">
+                        <div style="font-family: var(--font-header); font-size: 0.9rem; font-weight: 700; color: var(--color-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 6px; margin-bottom: 10px; letter-spacing: 0.05em; text-transform: uppercase;">
+                            Kişiselleştirilmiş Eser Detayları
+                        </div>
+                        <div id="cert-specs-list" style="display: flex; flex-direction: column; gap: 8px;">
+                            <!-- Dynamically populated specs -->
+                        </div>
+                    </div>
+
+                    <div class="certificate-footer">
+                        <div class="signature-section">
+                            <span class="signature-title">Baş Zanaatkar</span>
+                            <span class="signature-line">Onur Karaca</span>
+                            <span class="signature-subtitle">Karaca Studios & KupaHanem</span>
+                        </div>
+                        <div class="wax-seal-section">
+                            <div class="wax-seal-graphic">
+                                <i class="fa-solid fa-stamp"></i>
+                                <span class="seal-text">ARTISAN CERTIFIED</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-actions" style="margin-top: 20px;">
+                <button id="print-cert-btn" class="action-btn primary-btn" style="flex-grow: 1;">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Sertifikayı İndir / Yazdır</span>
+                </button>
+                <button id="close-cert-modal-btn" class="action-btn secondary-btn" style="flex-grow: 1;">
+                    <span>Alışverişe Devam Et</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="admin-login-modal" class="checkout-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content" style="max-width: 360px;">
+            <button id="admin-login-close" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            <h3 style="font-family: var(--font-header); margin-bottom: 1.5rem; color: var(--color-heading); text-align: center;"><i class="fa-solid fa-lock"></i> Yönetici Girişi</h3>
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label style="font-size: 0.85rem; display: block; margin-bottom: 8px;">Giriş Şifresi</label>
+                <input type="password" id="admin-pass-input" placeholder="Şifre: 1234" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 1rem; text-align: center; background: var(--bg-darker); color: var(--color-heading);">
+                <p id="admin-login-error" style="color: var(--color-primary); font-size: 0.8rem; margin-top: 8px; display: none;"><i class="fa-solid fa-circle-exclamation"></i> Hatalı şifre girildi!</p>
+            </div>
+            <button id="admin-login-submit" class="checkout-btn"><span>Giriş Yap</span></button>
+        </div>
+    </div>
+
+    <div id="admin-dashboard-modal" class="checkout-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content" style="max-width: 1000px; width: 95%; padding: 0; overflow: hidden; border-radius: 24px;">
+            <div class="admin-dashboard-layout" style="display: flex; min-height: 580px; height: 75vh;">
+                <!-- Sidebar -->
+                <div class="admin-sidebar" style="width: 240px; background: var(--bg-dark); border-right: 1px solid var(--border-color); padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; justify-content: space-between; flex-shrink: 0;">
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <div class="admin-title-area" style="display: flex; align-items: center; gap: 10px; margin-bottom: 2rem;">
+                            <i class="fa-solid fa-gears" style="color: var(--color-primary); font-size: 1.4rem;"></i>
+                            <h3 style="font-family: var(--font-header); font-size: 1.25rem; color: var(--color-heading);">Yönetim Paneli</h3>
+                        </div>
+                        <button class="admin-nav-tab active" data-target="admin-tab-stats" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; width: 100%; text-align: left; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span>Genel Bakış</span>
+                        </button>
+                        <button class="admin-nav-tab" data-target="admin-tab-catalog" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; width: 100%; text-align: left; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                            <span>Katalog Yönetimi</span>
+                        </button>
+                        <button class="admin-nav-tab" data-target="admin-tab-orders" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; width: 100%; text-align: left; font-weight: 600; cursor: pointer; transition: all 0.3s ease; position: relative;">
+                            <i class="fa-solid fa-receipt"></i>
+                            <span>Sipariş Takibi</span>
+                            <span id="admin-orders-badge" class="badge" style="background: var(--color-primary); color: #fff; font-size: 0.75rem; padding: 2px 7px; border-radius: 10px; margin-left: auto; font-weight: 700;">0</span>
+                        </button>
+
+                    </div>
+                    <div>
+                        <button id="admin-dashboard-close" class="checkout-btn" style="background: rgba(224, 122, 95, 0.1); color: var(--color-primary); width: 100%; border: 1px solid rgba(224, 122, 95, 0.2); font-size: 0.85rem; padding: 10px; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Paneli Kapat
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Content Panel -->
+                <div class="admin-main-panel" style="flex-grow: 1; display: flex; flex-direction: column; background: #FFFFFF; padding: 2rem 2.5rem; overflow-y: auto; position: relative;">
+                    <!-- Tab 1: Genel Bakış (Stats) -->
+                    <div id="admin-tab-stats" class="admin-tab-content active">
+                        <h4 style="font-family: var(--font-header); font-size: 1.4rem; color: var(--color-heading); margin-bottom: 1.5rem;">Atölye Genel Durumu</h4>
+                        <!-- Stats cards grid -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
+                            <div class="stat-card" style="background: var(--bg-darker); padding: 1.5rem; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 5px;">
+                                <span style="font-size: 0.8rem; color: var(--color-text-muted); font-weight: 600; letter-spacing: 0.5px;">TOPLAM CİRO</span>
+                                <span id="stat-revenue" style="font-size: 1.6rem; font-weight: 700; color: var(--color-heading); font-family: var(--font-header);">0 TL</span>
+                            </div>
+                            <div class="stat-card" style="background: var(--bg-darker); padding: 1.5rem; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 5px;">
+                                <span style="font-size: 0.8rem; color: var(--color-text-muted); font-weight: 600; letter-spacing: 0.5px;">TOPLAM SİPARİŞ</span>
+                                <span id="stat-orders" style="font-size: 1.6rem; font-weight: 700; color: var(--color-heading); font-family: var(--font-header);">0</span>
+                            </div>
+                            <div class="stat-card" style="background: var(--bg-darker); padding: 1.5rem; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 5px;">
+                                <span style="font-size: 0.8rem; color: var(--color-text-muted); font-weight: 600; letter-spacing: 0.5px;">ORTALAMA SEPET</span>
+                                <span id="stat-avg-value" style="font-size: 1.6rem; font-weight: 700; color: var(--color-heading); font-family: var(--font-header);">0 TL</span>
+                            </div>
+                            <div class="stat-card" style="background: var(--bg-darker); padding: 1.5rem; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 5px;">
+                                <span style="font-size: 0.8rem; color: var(--color-text-muted); font-weight: 600; letter-spacing: 0.5px;">KATALOG ÜRÜNÜ</span>
+                                <span id="stat-products" style="font-size: 1.6rem; font-weight: 700; color: var(--color-heading); font-family: var(--font-header);">0</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;" class="admin-panel-grid">
+                            <!-- Recent Activity / Info -->
+                            <div style="background: var(--bg-darker); border: 1px solid var(--border-color); border-radius: 20px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; gap: 15px;">
+                                <h5 style="font-family: var(--font-header); font-size: 1.1rem; color: var(--color-heading); margin-bottom: 0.5rem;">Sipariş Türü Dağılımı</h5>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px;">
+                                        <span>Özel Tasarımlar (Kişiselleştirilmiş)</span>
+                                        <span id="stat-custom-percent" style="font-weight: 600; color: var(--color-primary);">0%</span>
+                                    </div>
+                                    <div style="height: 8px; background: rgba(45,31,26,0.06); border-radius: 4px; overflow: hidden;">
+                                        <div id="stat-custom-bar" style="width: 0%; height: 100%; background: var(--color-primary); transition: width 0.8s ease;"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px;">
+                                        <span>Koleksiyon Ürünleri (Katalog)</span>
+                                        <span id="stat-catalog-percent" style="font-weight: 600; color: var(--color-secondary);">0%</span>
+                                    </div>
+                                    <div style="height: 8px; background: rgba(45,31,26,0.06); border-radius: 4px; overflow: hidden;">
+                                        <div id="stat-catalog-bar" style="width: 0%; height: 100%; background: var(--color-secondary); transition: width 0.8s ease;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Katalog Yönetimi -->
+                    <div id="admin-tab-catalog" class="admin-tab-content" style="display: none;">
+                        <div class="admin-panel-grid" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem;">
+                            <!-- Product List -->
+                            <div>
+                                <h4 style="font-family: var(--font-header); margin-bottom: 1rem; color: var(--color-heading); display: flex; align-items: center; gap: 8px;">
+                                    <i class="fa-solid fa-mug-hot" style="color: var(--color-primary); font-size: 1.1rem;"></i>
+                                    <span>Mevcut Ürünler</span>
+                                </h4>
+                                <div id="admin-product-list" style="max-height: 390px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px;">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+
+                            <!-- Add/Edit Product Form -->
+                            <div style="background: var(--bg-darker); border: 1px solid var(--border-color); border-radius: 20px; padding: 1.5rem;">
+                                <h4 id="catalog-form-title" style="font-family: var(--font-header); margin-bottom: 1rem; color: var(--color-heading); font-size: 1.15rem;">Yeni Ürün Ekle</h4>
+                                <form id="add-product-form" style="display: flex; flex-direction: column; gap: 12px;">
+                                    <input type="hidden" id="edit-prod-id" value="">
+                                    <div class="form-row" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 10px;">
+                                        <div>
+                                            <label style="font-size: 0.75rem; display: block; margin-bottom: 4px; font-weight: 600; color: var(--color-text-muted);">Kupa Adı</label>
+                                            <input type="text" id="new-prod-title" required style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.85rem; background: #FFFFFF; color: var(--color-heading);">
+                                        </div>
+                                        <div>
+                                            <label style="font-size: 0.75rem; display: block; margin-bottom: 4px; font-weight: 600; color: var(--color-text-muted);">Fiyat (TL)</label>
+                                            <input type="number" id="new-prod-price" required min="1" style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.85rem; background: #FFFFFF; color: var(--color-heading);">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label style="font-size: 0.75rem; display: block; margin-bottom: 4px; font-weight: 600; color: var(--color-text-muted);">Kategori</label>
+                                        <input type="text" id="new-prod-category" placeholder="Örn: Özel Seri, Doğal Seri" required style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.85rem; background: #FFFFFF; color: var(--color-heading);">
+                                    </div>
+
+                                    <div>
+                                        <label style="font-size: 0.75rem; display: block; margin-bottom: 4px; font-weight: 600; color: var(--color-text-muted);">Açıklama</label>
+                                        <textarea id="new-prod-desc" required rows="2" style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.85rem; font-family: inherit; background: #FFFFFF; color: var(--color-heading); resize: none;"></textarea>
+                                    </div>
+
+                                    <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                        <div>
+                                            <label style="font-size: 0.75rem; display: block; margin-bottom: 4px; font-weight: 600; color: var(--color-text-muted);">Hacim (ml)</label>
+                                            <input type="text" id="new-prod-volume" placeholder="Örn: 350ml" required style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.85rem; background: #FFFFFF; color: var(--color-heading);">
+                                        </div>
+                                        <div>
+                                            <label style="font-size: 0.75rem; display: block; margin-bottom: 4px; font-weight: 600; color: var(--color-text-muted);">Isı Koruma (örn: 8/10)</label>
+                                            <input type="text" id="new-prod-heat" placeholder="Örn: 8/10" required style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.85rem; background: #FFFFFF; color: var(--color-heading);">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label style="font-size: 0.75rem; display: block; margin-bottom: 4px; font-weight: 600; color: var(--color-text-muted);">Kupa Görseli</label>
+                                        <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center;">
+                                            <select id="new-prod-image" style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.85rem; background: #FFFFFF; color: var(--color-heading); outline: none;">
+                                                <option value="assets/nordic_forest.jpg">Adaçayı Yeşili (Nordic Forest)</option>
+                                                <option value="assets/eclipse_matte.jpg">Altın Yaldızlı Siyah (Eclipse)</option>
+                                                <option value="assets/kozmik_gezgin.jpg">Lacivert Galaksi (Cosmic)</option>
+                                                <option value="assets/siber_hanem.jpg">Siber Antrasit (Cyber)</option>
+                                                <option value="assets/sade_beyaz.jpg">Mat Porselen Beyazı (Sade Beyaz)</option>
+                                            </select>
+                                            <span style="font-size: 0.75rem; color: var(--color-text-muted);">veya</span>
+                                            <div>
+                                                <input type="file" id="new-prod-image-file" accept="image/*" style="display: none;">
+                                                <button type="button" id="custom-upload-btn" class="add-cart-text-btn" style="border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 4px; font-size: 0.75rem; height: 35px; background: #FFFFFF; border-color: var(--border-color); cursor: pointer; color: var(--color-text-main);">
+                                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                                    <span>Dosya</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div id="upload-preview-container" style="display: none; margin-top: 8px; align-items: center; gap: 8px; background: rgba(224,122,95,0.04); padding: 6px; border-radius: 8px; border: 1px dashed rgba(224,122,95,0.2);">
+                                            <img id="upload-preview-img" src="" style="width: 32px; height: 32px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-color);">
+                                            <span style="font-size: 0.75rem; color: var(--color-text-muted); word-break: break-all; flex-grow: 1;" id="upload-file-name">dosya-adi.jpg</span>
+                                            <button type="button" id="cancel-upload-btn" style="background: transparent; border: none; color: var(--color-primary); cursor: pointer; font-size: 0.85rem;" title="Görseli İptal Et"><i class="fa-solid fa-circle-xmark"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div style="display: flex; gap: 8px; margin-top: 5px;">
+                                        <button type="button" id="cancel-edit-btn" class="checkout-btn" style="display: none; flex: 1; background: var(--bg-dark); color: var(--color-text-main); border: 1px solid var(--border-color); margin-top: 0; padding: 10px; font-size: 0.85rem; border-radius: 10px; cursor: pointer; justify-content: center; align-items: center;">
+                                            <span>İptal</span>
+                                        </button>
+                                        <button type="submit" id="submit-prod-btn" class="checkout-btn" style="flex: 2; margin-top: 0; padding: 10px; font-size: 0.85rem; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer;">
+                                            <span id="submit-prod-btn-text">Ürünü Kataloğa Ekle</span>
+                                            <i class="fa-solid fa-plus" id="submit-prod-btn-icon"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Sipariş Takibi -->
+                    <div id="admin-tab-orders" class="admin-tab-content" style="display: none;">
+                        <h4 style="font-family: var(--font-header); font-size: 1.4rem; color: var(--color-heading); margin-bottom: 1rem;">Müşteri Siparişleri</h4>
+                        
+                        <div style="overflow-x: auto; max-height: 280px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 16px; background: var(--bg-darker); margin-bottom: 1.5rem;">
+                            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="border-bottom: 2px solid var(--border-color); color: var(--color-heading); font-weight: 700; background: var(--bg-dark);">
+                                        <th style="padding: 12px 15px;">Sipariş Kodu</th>
+                                        <th style="padding: 12px 15px;">Tarih/Saat</th>
+                                        <th style="padding: 12px 15px;">Toplam</th>
+                                        <th style="padding: 12px 15px;">Fırın Durumu</th>
+                                        <th style="padding: 12px 15px; text-align: right;">İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-orders-list-body">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Detailed order view popup inside panel -->
+                        <div id="admin-order-detail-panel" style="display: none; background: var(--bg-darker); border: 1px solid var(--border-color); border-radius: 20px; padding: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h5 id="detail-order-title" style="font-family: var(--font-header); font-size: 1.1rem; color: var(--color-heading); margin: 0;">Sipariş Detayı</h5>
+                                <button id="close-order-detail-btn" style="background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: var(--color-text-muted);"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div id="detail-order-content" style="font-size: 0.85rem; line-height: 1.5; background: #FFFFFF; border-radius: 12px; border: 1px solid var(--border-color); padding: 1.25rem;">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Ambient Noise Dashboard -->
+    <div id="ambient-dashboard" class="ambient-dashboard hidden">
+        <div class="dashboard-header">
+            <span>Zanaat Ambians Sesleri</span>
+            <button id="ambient-db-close" class="db-close-btn">&times;</button>
+        </div>
+        <div class="dashboard-body">
+            <div class="noise-control">
+                <label>Cozy Çömlek Şöminesi</label>
+                <input type="range" id="fire-volume" min="0" max="100" value="40">
+            </div>
+            <div class="noise-control">
+                <label>Yağmurlu Sanat Atölyesi</label>
+                <input type="range" id="cafe-volume" min="0" max="100" value="0">
+            </div>
+            <p class="ambient-tip"><i class="fa-solid fa-lightbulb"></i> Bu sesler sentezlenmektedir.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer hidden-element">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="assets/logo.jpg" alt="Logo" class="footer-logo">
+                <span class="footer-brand-name">KupaHanem</span>
+                <p>Toprağın hamlığını zarif sanat eseri kupalara dönüştüren zanaatkar seramik platformu.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Atölye Haritası</h4>
+                <ul>
+                    <li><a href="#hero">Atölye</a></li>
+                    <li><a href="#galeri">Koleksiyon</a></li>
+                    <li><a href="#atolye">Tasarım Masası</a></li>
+                    <li><a href="#rituel">Keşif Ritüeli</a></li>
+                    <li><a href="#" id="admin-login-trigger"><i class="fa-solid fa-lock"></i> Yönetici Girişi</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Çömlekçi İletişim</h4>
+                <p><i class="fa-solid fa-location-dot"></i> Seramik Vadisi No: 42, İstanbul</p>
+                <p><i class="fa-solid fa-envelope"></i> zanaat@kupahanem.com</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <p>&copy; 2026 KupaHanem. Bütün hakları saklıdır. Premium Pottery Boutique.</p>
+            <p style="font-family: var(--font-header); font-size: 1.25rem; letter-spacing: 1.5px; color: var(--color-text-muted);">
+                Designed by <strong style="color: var(--color-primary); font-weight: 800; text-transform: uppercase;">KARACA STUDIOS</strong>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- OrbitControls -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- Main JavaScript Logic -->
+    <script src="js/app.js"></script>
+</body>
+</html>
