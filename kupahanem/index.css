@@ -2008,29 +2008,153 @@ button, input {
 }
 
 @media (max-width: 768px) {
+    /* Header padding adjustments */
+    .nav-container {
+        padding: 0.8rem 1rem !important;
+    }
+    .brand-logo-text {
+        font-size: 1.25rem !important;
+    }
     .nav-links {
-        display: none;
+        display: none !important;
     }
     
     .hero-title {
-        font-size: 2.8rem;
+        font-size: 2.4rem !important;
+        line-height: 1.2 !important;
     }
     
     .section-title {
-        font-size: 2.1rem;
+        font-size: 2.1rem !important;
     }
     
     .footer-container {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-    
-    .modal-content {
-        padding: 1.5rem;
+        grid-template-columns: 1fr !important;
+        gap: 3rem !important;
     }
     
     .ticket-container {
-        padding: 1rem;
+        padding: 1rem !important;
+    }
+
+    /* Hero section refinements */
+    .hero-section {
+        padding: 6.5rem 1rem 3rem !important;
+        text-align: center;
+    }
+    .hero-desc {
+        font-size: 0.95rem !important;
+        margin: 0 auto 2.5rem !important;
+    }
+
+    /* Customizer Grid Refinements (Crucial) */
+    .customizer-container {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        padding: 1.2rem !important;
+        border-radius: 24px !important;
+    }
+
+    /* Sticky 3D Preview Box for a premium mobile app-like feel */
+    .customizer-preview-box {
+        position: sticky !important;
+        top: 70px !important; /* Stays fixed below header */
+        z-index: 999 !important;
+        min-height: 250px !important;
+        height: 250px !important;
+        padding: 0.5rem !important;
+        background: #FCFBF7 !important; /* matches shop backdrop */
+        border: 1px solid var(--border-color) !important;
+        box-shadow: 0 8px 20px rgba(45, 31, 26, 0.08) !important;
+        border-radius: 20px !important;
+    }
+    .customizer-preview-box .canvas-3d-wrapper {
+        height: 100% !important;
+    }
+
+    /* Horizontally scrollable tab bar prevents wrapping chaos */
+    .customizer-tabs-nav {
+        display: flex !important;
+        gap: 6px !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        border-bottom: 2px solid var(--border-color) !important;
+        margin-bottom: 15px !important;
+        padding-bottom: 5px !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .customizer-tabs-nav::-webkit-scrollbar {
+        display: none !important; /* Hide scrollbars for look */
+    }
+    
+    .customizer-tab-btn {
+        flex-shrink: 0 !important;
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* Swatches and selectors layout for mobile */
+    .color-dot-grid, #color-selectors, #layer-text-color-selectors {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        justify-content: flex-start !important;
+    }
+    
+    .color-dot {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    .pattern-grid {
+        grid-template-columns: repeat(3, 1fr) !important; /* Compact patterns grid */
+        gap: 8px !important;
+    }
+    
+    .pattern-btn {
+        padding: 8px 4px !important;
+        font-size: 0.75rem !important;
+    }
+
+    .handle-selector-grid, #handle-selectors, #handle-shape-selectors {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    .handle-btn, .handle-shape-btn {
+        padding: 10px 8px !important;
+        font-size: 0.75rem !important;
+    }
+
+    /* Personalization sliders row */
+    .slider-control label {
+        font-size: 0.75rem !important;
+    }
+
+    /* Modal dialog sizes */
+    .modal-content {
+        padding: 1.25rem !important;
+        width: 95% !important;
+        max-height: 92vh !important;
+        overflow-y: auto !important;
+    }
+
+    /* Cart drawer styles */
+    .cart-drawer {
+        width: 100vw !important; /* Full width cart drawer on mobile */
+        max-width: 100% !important;
+    }
+
+    /* Discovery quiz adjustments */
+    .quiz-card {
+        padding: 1.5rem !important;
+        border-radius: 20px !important;
+    }
+    
+    .quiz-options-container {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
     }
 }
 
