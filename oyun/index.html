@@ -137,6 +137,12 @@
         object-fit: contain;
         opacity: 0;
         pointer-events: none;
+        /* The source PNGs carry a faint light fringe on their edges (barely
+           visible on the site's cream background) that turns into a harsh
+           white halo against this dark scene. Eroding the alpha edge by a
+           couple pixels trims the fringe away without dimming the hands
+           themselves the way a blend-mode fix would. */
+        filter: url(#erode-fringe);
         animation-duration: 1.2s;
         animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
         animation-delay: 0.15s;
@@ -296,6 +302,11 @@
 </style>
 </head>
 <body>
+    <svg width="0" height="0" style="position: absolute;">
+        <filter id="erode-fringe" x="-20%" y="-20%" width="140%" height="140%">
+            <feMorphology operator="erode" radius="1.5"></feMorphology>
+        </filter>
+    </svg>
     <div class="page">
         <a href="../index.html#oyun" class="back-link">&larr; Karaca Studios'a dön</a>
         <div class="logo">KARACA STUDIOS</div>
