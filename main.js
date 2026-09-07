@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 `Merhaba,\n\nBeta test programına katılmak istiyorum.\n\nE-posta: ${email}`
             );
 
-            window.location.href = `mailto:info@karacastudios.com?subject=${subject}&body=${body}`;
+            window.location.href = `mailto:onurkrc25@gmail.com?subject=${subject}&body=${body}`;
 
             if (betaNote) {
                 betaNote.textContent = "E-posta uygulamanız açılıyor, göndermeyi unutmayın!";
