@@ -246,4 +246,31 @@ document.addEventListener("DOMContentLoaded", () => {
             betaForm.reset();
         });
     }
+
+    // Footer Contact Form (also mailto-based — same static-site constraint as the beta form)
+    const contactForm = document.getElementById("contact-form");
+    const contactNote = document.getElementById("contact-form-note");
+
+    if (contactForm) {
+        contactForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const email = document.getElementById("contact-email").value.trim();
+            const message = document.getElementById("contact-message").value.trim();
+
+            if (!email) return;
+
+            const subject = encodeURIComponent("Web Sitesi İletişim Formu");
+            const bodyLines = ["Merhaba,", "", `E-posta: ${email}`];
+            if (message) {
+                bodyLines.push("", "Mesaj:", message);
+            }
+
+            window.location.href = `mailto:onurkrc25@gmail.com?subject=${subject}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+
+            if (contactNote) {
+                contactNote.textContent = "E-posta uygulamanız açılıyor, göndermeyi unutmayın!";
+            }
+            contactForm.reset();
+        });
+    }
 });

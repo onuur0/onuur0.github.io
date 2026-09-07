@@ -841,6 +841,40 @@ body {
     margin-top: 16px;
 }
 
+.footer-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+    max-width: 320px;
+}
+
+.footer-contact-message {
+    padding: 14px 20px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.5);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--text-color);
+    outline: none;
+    resize: vertical;
+    transition: var(--transition-micro);
+}
+
+.footer-contact-message::placeholder {
+    color: var(--secondary-text);
+}
+
+.footer-contact-message:focus {
+    border-color: var(--accent-color);
+    background: #fff;
+}
+
+.footer-contact-form .beta-submit {
+    align-self: flex-start;
+}
+
 .social-links {
     display: flex;
     flex-direction: column;
