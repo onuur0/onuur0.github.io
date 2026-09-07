@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Gök Taşı Avcısı | Karaca Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg-color: #f4f1ea;
+        --text-color: #1c1a17;
+        --accent-color: #c5a059;
+        --accent-terracotta: #c86a4b;
+        --secondary-text: #767064;
+        --border-color: rgba(28, 26, 23, 0.08);
+        --font-title: 'Cinzel', 'Times New Roman', serif;
+        --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 24px 20px 60px;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.85rem;
+        color: var(--secondary-text);
+        text-decoration: none;
+        letter-spacing: 0.02em;
+        margin-bottom: 20px;
+    }
+
+    .back-link:hover { color: var(--text-color); }
+
+    .logo {
+        font-family: var(--font-title);
+        font-size: 1.1rem;
+        letter-spacing: 0.15em;
+        text-align: center;
+        margin-bottom: 4px;
+    }
+
+    h1 {
+        font-family: var(--font-title);
+        font-size: 1.6rem;
+        text-align: center;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        margin-bottom: 6px;
+    }
+
+    .subtitle {
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--secondary-text);
+        margin-bottom: 24px;
+    }
+
+    .hud {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+        padding: 0 4px;
+    }
+
+    .hud .score { color: var(--accent-color); }
+    .hud .lives { letter-spacing: 3px; }
+
+    .game-frame {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 25px 60px rgba(28, 26, 23, 0.15);
+        border: 1px solid var(--border-color);
+        touch-action: none;
+    }
+
+    canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(ellipse at 50% 20%, #1b1f3a 0%, #0a0c18 70%);
+    }
+
+    .overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        text-align: center;
+        padding: 24px;
+        background: rgba(10, 12, 24, 0.82);
+        color: #f4f1ea;
+    }
+
+    .overlay h2 {
+        font-family: var(--font-title);
+        font-size: 1.4rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+    }
+
+    .overlay p {
+        font-size: 0.9rem;
+        color: rgba(244, 241, 234, 0.7);
+        max-width: 320px;
+        line-height: 1.6;
+    }
+
+    .overlay .final-score {
+        font-family: var(--font-title);
+        font-size: 2rem;
+        color: var(--accent-color);
+    }
+
+    .play-btn {
+        background: var(--accent-color);
+        color: #1c1a17;
+        border: none;
+        padding: 14px 36px;
+        border-radius: 30px;
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .play-btn:hover {
+        background: #d8b56e;
+        transform: translateY(-2px);
+    }
+
+    .name-input {
+        display: flex;
+        gap: 10px;
+        margin-top: 4px;
+    }
+
+    .name-input input {
+        padding: 10px 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(244, 241, 234, 0.3);
+        background: rgba(244, 241, 234, 0.08);
+        color: #f4f1ea;
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+        outline: none;
+        width: 160px;
+    }
+
+    .name-input input::placeholder { color: rgba(244, 241, 234, 0.4); }
+
+    .name-input button {
+        background: var(--accent-terracotta);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-family: var(--font-sans);
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .controls-hint {
+        text-align: center;
+        font-size: 0.78rem;
+        color: var(--secondary-text);
+        margin-top: 12px;
+    }
+
+    .leaderboard {
+        margin-top: 36px;
+        border-top: 1px solid var(--border-color);
+        padding-top: 24px;
+    }
+
+    .leaderboard h3 {
+        font-family: var(--font-serif, serif);
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-bottom: 14px;
+        letter-spacing: 0.02em;
+    }
+
+    .leaderboard ol {
+        list-style: none;
+        counter-reset: rank;
+    }
+
+    .leaderboard li {
+        counter-increment: rank;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 16px;
+        border-radius: 14px;
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+        background: rgba(197, 160, 89, 0.06);
+    }
+
+    .leaderboard li::before {
+        content: counter(rank) ".";
+        color: var(--accent-color);
+        font-weight: 600;
+        margin-right: 10px;
+        width: 20px;
+        display: inline-block;
+    }
+
+    .leaderboard li .name { flex: 1; }
+    .leaderboard li .points { font-weight: 600; }
+
+    .leaderboard .empty {
+        font-size: 0.85rem;
+        color: var(--secondary-text);
+        text-align: center;
+        padding: 16px 0;
+    }
+
+    .leaderboard .note {
+        text-align: center;
+        font-size: 0.75rem;
+        color: var(--secondary-text);
+        margin-top: 14px;
+    }
+
+    [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+    <div class="page">
+        <a href="../index.html#oyun" class="back-link">&larr; Karaca Studios'a dön</a>
+        <div class="logo">KARACA STUDIOS</div>
+        <h1>Gök Taşı Avcısı</h1>
+        <p class="subtitle">Gemiyi hareket ettirip düşen gök taşlarını yok et.</p>
+
+        <div class="hud">
+            <span class="score">Skor: <span id="score-value">0</span></span>
+            <span class="lives" id="lives-value">❤❤❤</span>
+        </div>
+
+        <div class="game-frame">
+            <canvas id="game"></canvas>
+
+            <div class="overlay" id="start-overlay">
+                <h2>Hazır mısın?</h2>
+                <p>Fareyi/parmağını sürükleyerek ya da ok tuşlarıyla gemiyi hareket ettir. Gemi otomatik ateş eder, sen sadece nişan al. 3 gök taşını kaçırırsan oyun biter.</p>
+                <button class="play-btn" id="start-btn">Başla</button>
+            </div>
+
+            <div class="overlay" id="gameover-overlay" hidden>
+                <h2>Oyun Bitti</h2>
+                <div class="final-score" id="final-score">0</div>
+                <div id="name-prompt" class="name-input" hidden>
+                    <input type="text" id="player-name" placeholder="İsminiz" maxlength="16">
+                    <button id="save-score-btn">Kaydet</button>
+                </div>
+                <button class="play-btn" id="retry-btn">Tekrar Oyna</button>
+            </div>
+        </div>
+
+        <p class="controls-hint">Kontrol: Fare/Dokunma ile sürükle veya ← → ok tuşları</p>
+
+        <div class="leaderboard">
+            <h3>En Yüksek Skorlar</h3>
+            <ol id="scores-list"></ol>
+            <p class="empty" id="scores-empty" hidden>Henüz skor yok — ilk sen ol!</p>
+            <p class="note">Skorlar sadece bu tarayıcıda saklanır, diğer ziyaretçilerle paylaşılmaz.</p>
+        </div>
+    </div>
+
+<script>
+(function () {
+    const STORAGE_KEY = "ks_meteor_scores";
+    const MAX_SCORES = 10;
+
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+    const frame = canvas.parentElement;
+
+    const scoreValueEl = document.getElementById("score-value");
+    const livesValueEl = document.getElementById("lives-value");
+    const startOverlay = document.getElementById("start-overlay");
+    const gameoverOverlay = document.getElementById("gameover-overlay");
+    const startBtn = document.getElementById("start-btn");
+    const retryBtn = document.getElementById("retry-btn");
+    const finalScoreEl = document.getElementById("final-score");
+    const namePrompt = document.getElementById("name-prompt");
+    const playerNameInput = document.getElementById("player-name");
+    const saveScoreBtn = document.getElementById("save-score-btn");
+    const scoresListEl = document.getElementById("scores-list");
+    const scoresEmptyEl = document.getElementById("scores-empty");
+
+    let width = 0, height = 0;
+
+    function resizeCanvas() {
+        const rect = frame.getBoundingClientRect();
+        width = rect.width;
+        height = rect.height;
+        canvas.width = width;
+        canvas.height = height;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function loadScores() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            const list = raw ? JSON.parse(raw) : [];
+            return Array.isArray(list) ? list : [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function saveScores(list) {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        } catch (e) {
+            /* localStorage unavailable, ignore */
+        }
+    }
+
+    function renderLeaderboard() {
+        const list = loadScores();
+        scoresListEl.innerHTML = "";
+        if (list.length === 0) {
+            scoresEmptyEl.hidden = false;
+            return;
+        }
+        scoresEmptyEl.hidden = true;
+        list.forEach((entry) => {
+            const li = document.createElement("li");
+            const nameSpan = document.createElement("span");
+            nameSpan.className = "name";
+            nameSpan.textContent = entry.name;
+            const pointsSpan = document.createElement("span");
+            pointsSpan.className = "points";
+            pointsSpan.textContent = entry.score;
+            li.appendChild(nameSpan);
+            li.appendChild(pointsSpan);
+            scoresListEl.appendChild(li);
+        });
+    }
+
+    function qualifiesForLeaderboard(score) {
+        const list = loadScores();
+        if (list.length < MAX_SCORES) return true;
+        return score > list[list.length - 1].score;
+    }
+
+    function addScore(name, score) {
+        const list = loadScores();
+        list.push({ name: name || "Oyuncu", score });
+        list.sort((a, b) => b.score - a.score);
+        saveScores(list.slice(0, MAX_SCORES));
+        renderLeaderboard();
+    }
+
+    // ---- Game state ----
+    let running = false;
+    let score = 0;
+    let lives = 3;
+    let pointerX = null;
+    let player, bullets, meteors, stars;
+    let spawnTimer = 0, fireTimer = 0, elapsed = 0;
+    let lastTime = 0;
+    const keys = { left: false, right: false };
+
+    function resetState() {
+        player = { x: width / 2, y: height - 40, w: 34, h: 34, speed: 6 };
+        bullets = [];
+        meteors = [];
+        spawnTimer = 0;
+        fireTimer = 0;
+        elapsed = 0;
+        score = 0;
+        lives = 3;
+        pointerX = null;
+        stars = Array.from({ length: 60 }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            r: Math.random() * 1.4 + 0.3,
+            tw: Math.random() * Math.PI * 2
+        }));
+        updateHud();
+    }
+
+    function updateHud() {
+        scoreValueEl.textContent = score;
+        livesValueEl.textContent = "❤️".repeat(Math.max(lives, 0)) + "🤍".repeat(Math.max(3 - lives, 0));
+    }
+
+    function spawnMeteor() {
+        const radius = 14 + Math.random() * 16;
+        const difficulty = Math.min(elapsed / 30000, 1);
+        const speed = (60 + Math.random() * 40) + difficulty * 90;
+        meteors.push({
+            x: radius + Math.random() * (width - radius * 2),
+            y: -radius,
+            r: radius,
+            speed,
+            rot: Math.random() * Math.PI * 2,
+            rotSpeed: (Math.random() - 0.5) * 0.05
+        });
+    }
+
+    function fireBullet() {
+        bullets.push({ x: player.x, y: player.y - player.h / 2, r: 4, speed: 480 });
+    }
+
+    function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+    function update(dt) {
+        elapsed += dt * 1000;
+
+        // Player movement
+        if (pointerX !== null) {
+            player.x += (pointerX - player.x) * Math.min(1, dt * 12);
+        } else {
+            if (keys.left) player.x -= player.speed;
+            if (keys.right) player.x += player.speed;
+        }
+        player.x = clamp(player.x, player.w / 2, width - player.w / 2);
+
+        // Auto-fire
+        fireTimer -= dt;
+        if (fireTimer <= 0) {
+            fireBullet();
+            fireTimer = 0.28;
+        }
+
+        // Spawn meteors, ramping up over time
+        const spawnInterval = Math.max(0.45, 1.4 - elapsed / 40000);
+        spawnTimer -= dt;
+        if (spawnTimer <= 0) {
+            spawnMeteor();
+            spawnTimer = spawnInterval;
+        }
+
+        // Update bullets
+        for (let i = bullets.length - 1; i >= 0; i--) {
+            const b = bullets[i];
+            b.y -= b.speed * dt;
+            if (b.y < -10) bullets.splice(i, 1);
+        }
+
+        // Update meteors
+        for (let i = meteors.length - 1; i >= 0; i--) {
+            const m = meteors[i];
+            m.y += m.speed * dt;
+            m.rot += m.rotSpeed;
+
+            if (m.y - m.r > height) {
+                meteors.splice(i, 1);
+                lives -= 1;
+                updateHud();
+                if (lives <= 0) {
+                    gameOver();
+                    return;
+                }
+                continue;
+            }
+
+            // Meteor vs player
+            const dxp = m.x - player.x, dyp = m.y - player.y;
+            if (Math.hypot(dxp, dyp) < m.r + player.w / 2.4) {
+                meteors.splice(i, 1);
+                lives -= 1;
+                updateHud();
+                if (lives <= 0) {
+                    gameOver();
+                    return;
+                }
+                continue;
+            }
+        }
+
+        // Bullet vs meteor collisions
+        for (let i = meteors.length - 1; i >= 0; i--) {
+            const m = meteors[i];
+            for (let j = bullets.length - 1; j >= 0; j--) {
+                const b = bullets[j];
+                const dx = m.x - b.x, dy = m.y - b.y;
+                if (Math.hypot(dx, dy) < m.r + b.r) {
+                    meteors.splice(i, 1);
+                    bullets.splice(j, 1);
+                    score += Math.round(30 - m.r);
+                    updateHud();
+                    break;
+                }
+            }
+        }
+    }
+
+    function drawStarfield() {
+        ctx.fillStyle = "#f4f1ea";
+        stars.forEach((s) => {
+            s.tw += 0.02;
+            const alpha = 0.4 + Math.sin(s.tw) * 0.3;
+            ctx.globalAlpha = Math.max(0, alpha);
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        ctx.globalAlpha = 1;
+    }
+
+    function drawPlayer() {
+        ctx.save();
+        ctx.translate(player.x, player.y);
+        ctx.beginPath();
+        ctx.moveTo(0, -player.h / 2);
+        ctx.lineTo(player.w / 2, player.h / 2);
+        ctx.lineTo(0, player.h / 3);
+        ctx.lineTo(-player.w / 2, player.h / 2);
+        ctx.closePath();
+        ctx.fillStyle = "#c5a059";
+        ctx.shadowColor = "rgba(197, 160, 89, 0.6)";
+        ctx.shadowBlur = 14;
+        ctx.fill();
+        ctx.restore();
+    }
+
+    function drawBullets() {
+        ctx.fillStyle = "#f4f1ea";
+        ctx.shadowColor = "rgba(244, 241, 234, 0.8)";
+        ctx.shadowBlur = 8;
+        bullets.forEach((b) => {
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        ctx.shadowBlur = 0;
+    }
+
+    function drawMeteors() {
+        meteors.forEach((m) => {
+            ctx.save();
+            ctx.translate(m.x, m.y);
+            ctx.rotate(m.rot);
+            const grad = ctx.createRadialGradient(-m.r * 0.3, -m.r * 0.3, m.r * 0.1, 0, 0, m.r);
+            grad.addColorStop(0, "#c86a4b");
+            grad.addColorStop(1, "#6b3524");
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(0, 0, m.r, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "rgba(0,0,0,0.2)";
+            ctx.beginPath();
+            ctx.arc(m.r * 0.3, m.r * 0.2, m.r * 0.25, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(-m.r * 0.35, -m.r * 0.1, m.r * 0.18, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        drawStarfield();
+        drawMeteors();
+        drawBullets();
+        drawPlayer();
+    }
+
+    function loop(timestamp) {
+        if (!running) return;
+        if (!lastTime) lastTime = timestamp;
+        const dt = Math.min((timestamp - lastTime) / 1000, 0.05);
+        lastTime = timestamp;
+
+        update(dt);
+        if (running) {
+            draw();
+            requestAnimationFrame(loop);
+        }
+    }
+
+    function startGame() {
+        resetState();
+        running = true;
+        lastTime = 0;
+        startOverlay.hidden = true;
+        gameoverOverlay.hidden = true;
+        requestAnimationFrame(loop);
+    }
+
+    function gameOver() {
+        running = false;
+        finalScoreEl.textContent = score;
+        const qualifies = qualifiesForLeaderboard(score) && score > 0;
+        namePrompt.hidden = !qualifies;
+        retryBtn.hidden = qualifies;
+        gameoverOverlay.hidden = false;
+    }
+
+    // ---- Input ----
+    function pointerToX(clientX) {
+        const rect = canvas.getBoundingClientRect();
+        return clamp(clientX - rect.left, 0, rect.width);
+    }
+
+    frame.addEventListener("mousemove", (e) => {
+        if (!running) return;
+        pointerX = pointerToX(e.clientX);
+    });
+
+    frame.addEventListener("touchmove", (e) => {
+        if (!running) return;
+        e.preventDefault();
+        pointerX = pointerToX(e.touches[0].clientX);
+    }, { passive: false });
+
+    frame.addEventListener("touchstart", (e) => {
+        if (!running) return;
+        pointerX = pointerToX(e.touches[0].clientX);
+    }, { passive: true });
+
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") { keys.left = true; pointerX = null; }
+        if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") { keys.right = true; pointerX = null; }
+    });
+    window.addEventListener("keyup", (e) => {
+        if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") keys.left = false;
+        if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") keys.right = false;
+    });
+
+    startBtn.addEventListener("click", startGame);
+    retryBtn.addEventListener("click", startGame);
+
+    saveScoreBtn.addEventListener("click", () => {
+        const name = playerNameInput.value.trim().slice(0, 16);
+        addScore(name, score);
+        playerNameInput.value = "";
+        namePrompt.hidden = true;
+        retryBtn.hidden = false;
+    });
+
+    playerNameInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") saveScoreBtn.click();
+    });
+
+    // Initial paint (idle starfield behind the start overlay)
+    resetState();
+    draw();
+    renderLeaderboard();
+})();
+</script>
+</body>
+</html>
