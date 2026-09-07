@@ -70,6 +70,7 @@ body {
     padding: 24px 6%;
     z-index: 100;
     mix-blend-mode: difference; /* Beautiful overlap behavior with dark/light elements */
+    isolation: isolate; /* Forces the whole header to flatten as one layer before blending, so multiple header-action children (CTA + hamburger) still blend correctly */
 }
 
 /* To ensure nav links stay readable even in blend mode, we use off-white color */
@@ -139,6 +140,92 @@ body {
     background-color: #fff;
     color: #000;
     border-color: #fff;
+}
+
+.header-action {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Hamburger toggle (mobile only) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 210;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: var(--transition-micro);
+}
+
+.menu-toggle.is-active span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+}
+
+.menu-toggle.is-active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.is-active span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* Mobile Nav Overlay */
+.mobile-nav {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    background-color: var(--bg-color);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-smooth);
+}
+
+.mobile-nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav-link {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    color: var(--text-color);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+}
+
+.mobile-nav-cta {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--bg-color);
+    background-color: var(--text-color);
+    padding: 12px 28px;
+    border-radius: 30px;
+    margin-top: 12px;
 }
 
 /* ==========================================================================
@@ -627,6 +714,76 @@ body {
     50% { transform: scale(1.08); }
 }
 
+/* Beta Test Signup */
+.beta-desc {
+    max-width: 640px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--secondary-text);
+    font-weight: 300;
+    margin-bottom: 40px;
+}
+
+.beta-form {
+    display: flex;
+    gap: 16px;
+    max-width: 560px;
+}
+
+.beta-input {
+    flex: 1;
+    padding: 16px 24px;
+    border-radius: 30px;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.5);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--text-color);
+    outline: none;
+    transition: var(--transition-micro);
+}
+
+.beta-input::placeholder {
+    color: var(--secondary-text);
+}
+
+.beta-input:focus {
+    border-color: var(--accent-color);
+    background: #fff;
+}
+
+.beta-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--text-color);
+    color: var(--bg-color);
+    border: 1px solid transparent;
+    padding: 14px 32px;
+    border-radius: 30px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transition-micro);
+    white-space: nowrap;
+}
+
+.beta-submit:hover {
+    background: transparent;
+    color: var(--text-color);
+    border-color: var(--text-color);
+}
+
+.beta-note {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    min-height: 1.2em;
+}
+
 /* ==========================================================================
    FOOTER
    ========================================================================== */
@@ -743,7 +900,10 @@ body {
         padding: 20px 4%;
     }
     .nav {
-        display: none; /* Mobile menu would toggle in full app */
+        display: none;
+    }
+    .menu-toggle {
+        display: flex;
     }
     #bg-text-layer .bg-title {
         font-size: 14vw;
@@ -751,6 +911,13 @@ body {
     .services-grid {
         grid-template-columns: 1fr;
         gap: 24px;
+    }
+    .beta-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .beta-submit {
+        width: 100%;
     }
     .feature-list {
         grid-template-columns: 1fr;

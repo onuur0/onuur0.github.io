@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=1.0.2">
+    <link rel="stylesheet" href="style.css?v=1.0.3">
 </head>
 <body>
 
@@ -20,12 +20,27 @@
         <nav class="nav">
             <a href="#services" class="nav-link">Hizmetler</a>
             <a href="#portfolio" class="nav-link">Projeler</a>
+            <a href="#beta" class="nav-link">Beta Ol</a>
             <a href="#iletisim" class="nav-link">İletişim</a>
         </nav>
         <div class="header-action">
             <a href="https://www.instagram.com/10ur.karaca/" target="_blank" rel="noopener noreferrer" class="btn-minimal">Bize Ulaşın</a>
+            <div class="menu-toggle" id="menu-toggle" role="button" tabindex="0" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-nav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="#services" class="mobile-nav-link">Hizmetler</a>
+        <a href="#portfolio" class="mobile-nav-link">Projeler</a>
+        <a href="#beta" class="mobile-nav-link">Beta Ol</a>
+        <a href="#iletisim" class="mobile-nav-link">İletişim</a>
+        <a href="https://www.instagram.com/10ur.karaca/" target="_blank" rel="noopener noreferrer" class="mobile-nav-link mobile-nav-cta">Bize Ulaşın</a>
+    </div>
 
     <!-- Scroll Container -->
     <div id="hero-scroll-container">
@@ -438,7 +453,19 @@
                              </div>
                          </div>
                     </section>
-                    
+
+                    <!-- Beta Test Signup Section -->
+                    <section id="beta" class="content-section beta-section">
+                        <div class="section-meta">03 / ERKEN ERİŞİM</div>
+                        <h2 class="section-title">Test Kullanıcısı Ol</h2>
+                        <p class="beta-desc">TimeVia ve Giresun Su Cepte gibi yakında yayınlanacak uygulamalarımızı ilk deneyenlerden olmak ister misiniz? E-posta adresinizi bırakın, yayına açılır açılmaz sizinle iletişime geçelim.</p>
+                        <form id="beta-form" class="beta-form" novalidate>
+                            <input type="email" id="beta-email" class="beta-input" placeholder="E-posta adresiniz" required>
+                            <button type="submit" class="beta-submit">Başvur</button>
+                        </form>
+                        <p id="beta-form-note" class="beta-note" aria-live="polite"></p>
+                    </section>
+
                     <!-- Footer Info -->
                     <footer class="content-footer" id="iletisim">
                         <div class="footer-grid">
@@ -471,6 +498,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <!-- Custom Scripts -->
-    <script src="main.js?v=1.0.2"></script>
+    <script src="main.js?v=1.0.3"></script>
 </body>
 </html>

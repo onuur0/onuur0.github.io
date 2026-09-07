@@ -2,6 +2,19 @@
 gsap.registerPlugin(ScrollTrigger);
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Chromium sometimes fails to composite mix-blend-mode on .header correctly on first
+    // paint once .header-action holds more than one child (CTA link + hamburger toggle),
+    // leaving that corner invisible. Forcing one blend-mode recalculation fixes it for the
+    // rest of the page's life.
+    const header = document.querySelector(".header");
+    if (header) {
+        requestAnimationFrame(() => {
+            header.style.mixBlendMode = "normal";
+            void header.offsetHeight;
+            header.style.mixBlendMode = "difference";
+        });
+    }
+
     // Initial state setups to prevent flash of unstyled content (FOUC)
     gsap.set("#bg-text-layer", {
         opacity: 0.08,
@@ -156,4 +169,81 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    // 5. Beta Section Entrance Animation
+    const betaTL = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#beta",
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+        }
+    });
+
+    betaTL.from("#beta .section-meta, #beta .section-title, #beta .beta-desc, #beta .beta-form", {
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power2.out"
+    });
+
+    // Mobile Nav Toggle
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileNav = document.getElementById("mobile-nav");
+
+    if (menuToggle && mobileNav) {
+        const closeMobileNav = () => {
+            mobileNav.classList.remove("is-open");
+            menuToggle.classList.remove("is-active");
+            menuToggle.setAttribute("aria-expanded", "false");
+            menuToggle.setAttribute("aria-label", "Menüyü aç");
+            document.body.style.overflow = "";
+        };
+
+        const toggleMobileNav = () => {
+            const isOpen = mobileNav.classList.toggle("is-open");
+            menuToggle.classList.toggle("is-active", isOpen);
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+            menuToggle.setAttribute("aria-label", isOpen ? "Menüyü kapat" : "Menüyü aç");
+            document.body.style.overflow = isOpen ? "hidden" : "";
+        };
+
+        menuToggle.addEventListener("click", toggleMobileNav);
+        menuToggle.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                toggleMobileNav();
+            }
+        });
+
+        mobileNav.querySelectorAll(".mobile-nav-link").forEach((link) => {
+            link.addEventListener("click", closeMobileNav);
+        });
+    }
+
+    // Beta Test Signup Form (opens the user's mail client — no backend on this static site)
+    const betaForm = document.getElementById("beta-form");
+    const betaNote = document.getElementById("beta-form-note");
+
+    if (betaForm) {
+        betaForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById("beta-email");
+            const email = emailInput.value.trim();
+
+            if (!email) return;
+
+            const subject = encodeURIComponent("Beta Test Programı Başvurusu");
+            const body = encodeURIComponent(
+                `Merhaba,\n\nBeta test programına katılmak istiyorum.\n\nE-posta: ${email}`
+            );
+
+            window.location.href = `mailto:info@karacastudios.com?subject=${subject}&body=${body}`;
+
+            if (betaNote) {
+                betaNote.textContent = "E-posta uygulamanız açılıyor, göndermeyi unutmayın!";
+            }
+            betaForm.reset();
+        });
+    }
 });
