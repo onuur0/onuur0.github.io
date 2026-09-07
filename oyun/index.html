@@ -335,15 +335,12 @@
             <h3>En Yüksek Skorlar</h3>
             <ol id="scores-list"></ol>
             <p class="empty" id="scores-empty" hidden>Henüz skor yok — ilk sen ol!</p>
-            <p class="note">Skorlar sadece bu tarayıcıda saklanır, diğer ziyaretçilerle paylaşılmaz.</p>
+            <p class="note">En yüksek 10 skor herkese açıktır.</p>
         </div>
     </div>
 
 <script>
 (function () {
-    const STORAGE_KEY = "ks_meteor_scores";
-    const MAX_SCORES = 10;
-
     const canvas = document.getElementById("game");
     const ctx = canvas.getContext("2d");
     const frame = canvas.parentElement;
@@ -373,31 +370,47 @@
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    function loadScores() {
+    // TODO: yazarkasa-pro-backend gercek adresi belli olunca burayi guncelle
+    const API_BASE = "https://REPLACE_WITH_YOUR_API_DOMAIN/api";
+
+    async function fetchTopScores() {
         try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            const list = raw ? JSON.parse(raw) : [];
-            return Array.isArray(list) ? list : [];
+            const res = await fetch(`${API_BASE}/meteor-scores/top`);
+            if (!res.ok) throw new Error("bad response");
+            return await res.json();
         } catch (e) {
-            return [];
+            return null;
         }
     }
 
-    function saveScores(list) {
+    async function submitScore(name, score) {
         try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+            const res = await fetch(`${API_BASE}/meteor-scores`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, score })
+            });
+            return res.ok;
         } catch (e) {
-            /* localStorage unavailable, ignore */
+            return false;
         }
     }
 
-    function renderLeaderboard() {
-        const list = loadScores();
+    async function renderLeaderboard() {
+        const list = await fetchTopScores();
         scoresListEl.innerHTML = "";
-        if (list.length === 0) {
+
+        if (list === null) {
             scoresEmptyEl.hidden = false;
+            scoresEmptyEl.textContent = "Skor tablosu şu anda yüklenemedi, daha sonra tekrar deneyin.";
             return;
         }
+        if (list.length === 0) {
+            scoresEmptyEl.hidden = false;
+            scoresEmptyEl.textContent = "Henüz skor yok — ilk sen ol!";
+            return;
+        }
+
         scoresEmptyEl.hidden = true;
         list.forEach((entry) => {
             const li = document.createElement("li");
@@ -411,20 +424,6 @@
             li.appendChild(pointsSpan);
             scoresListEl.appendChild(li);
         });
-    }
-
-    function qualifiesForLeaderboard(score) {
-        const list = loadScores();
-        if (list.length < MAX_SCORES) return true;
-        return score > list[list.length - 1].score;
-    }
-
-    function addScore(name, score) {
-        const list = loadScores();
-        list.push({ name: name || "Oyuncu", score });
-        list.sort((a, b) => b.score - a.score);
-        saveScores(list.slice(0, MAX_SCORES));
-        renderLeaderboard();
     }
 
     // ---- Game state ----
@@ -660,9 +659,9 @@
     function gameOver() {
         running = false;
         finalScoreEl.textContent = score;
-        const qualifies = qualifiesForLeaderboard(score) && score > 0;
-        namePrompt.hidden = !qualifies;
-        retryBtn.hidden = qualifies;
+        const canSave = score > 0;
+        namePrompt.hidden = !canSave;
+        retryBtn.hidden = canSave;
         gameoverOverlay.hidden = false;
     }
 
@@ -700,12 +699,17 @@
     startBtn.addEventListener("click", startGame);
     retryBtn.addEventListener("click", startGame);
 
-    saveScoreBtn.addEventListener("click", () => {
-        const name = playerNameInput.value.trim().slice(0, 16);
-        addScore(name, score);
+    saveScoreBtn.addEventListener("click", async () => {
+        const name = playerNameInput.value.trim().slice(0, 16) || "Oyuncu";
+        saveScoreBtn.disabled = true;
+        saveScoreBtn.textContent = "Kaydediliyor...";
+        await submitScore(name, score);
+        saveScoreBtn.disabled = false;
+        saveScoreBtn.textContent = "Kaydet";
         playerNameInput.value = "";
         namePrompt.hidden = true;
         retryBtn.hidden = false;
+        renderLeaderboard();
     });
 
     playerNameInput.addEventListener("keydown", (e) => {
