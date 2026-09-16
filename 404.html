@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sayfa Bulunamadı | Karaca Studios</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg-color: #f4f1ea;
+        --text-color: #1c1a17;
+        --accent-color: #c5a059;
+        --secondary-text: #767064;
+        --font-serif: 'Playfair Display', Georgia, serif;
+        --font-title: 'Cinzel', 'Times New Roman', serif;
+        --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+        height: 100%;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+    }
+
+    .logo {
+        font-family: var(--font-title);
+        font-size: 1.1rem;
+        letter-spacing: 0.2em;
+        margin-bottom: 40px;
+    }
+
+    .code {
+        font-family: var(--font-serif);
+        font-size: clamp(4rem, 18vw, 8rem);
+        line-height: 1;
+        color: var(--accent-color);
+        margin-bottom: 8px;
+    }
+
+    h1 {
+        font-family: var(--font-serif);
+        font-size: clamp(1.3rem, 4vw, 1.8rem);
+        font-weight: 400;
+        margin-bottom: 12px;
+    }
+
+    p {
+        font-size: 0.95rem;
+        color: var(--secondary-text);
+        max-width: 380px;
+        line-height: 1.6;
+        margin-bottom: 32px;
+    }
+
+    .home-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--text-color);
+        color: var(--bg-color);
+        padding: 14px 32px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .home-btn:hover {
+        background: var(--accent-color);
+        color: var(--text-color);
+        transform: translateY(-2px);
+    }
+</style>
+</head>
+<body>
+    <div class="logo">KARACA STUDIOS</div>
+    <div class="code">404</div>
+    <h1>Bu sayfa bulunamadı</h1>
+    <p>Aradığınız sayfa taşınmış, kaldırılmış veya hiç var olmamış olabilir.</p>
+    <a href="/" class="home-btn">&larr; Ana Sayfaya Dön</a>
+</body>
+</html>
